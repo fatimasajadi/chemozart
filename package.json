@@ -1,0 +1,28 @@
+{
+  "name": "chemart",
+  "version": "1.0.0-alpha",
+  "description": "Chemistry is art",
+  "main": "index.js",
+  "scripts": {
+    "test": "grunt test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/mohebifar/chemart.git"
+  },
+  "keywords": [
+    "chemistry",
+    "openbabel",
+    "node",
+    "webgl",
+    "molecule",
+    "editor",
+    "3d"
+  ],
+  "author": "Mohamad Mohebifar",
+  "license": "Apache 2.0",
+  "bugs": {
+    "url": "https://github.com/mohebifar/chemart/issues"
+  },
+  "homepage": "https://github.com/mohebifar/chemart"
+}
