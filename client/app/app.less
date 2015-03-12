@@ -1,0 +1,38 @@
+body {
+  margin: 0;
+  padding: 0;
+  font-family: 'Cabin', sans-serif;
+}
+
+@keyframes modalShow {
+  from {
+    opacity: 0;
+    transform: perspective(900px) translate3d(-50%, -120px, 0) rotateX(-90deg);
+  }
+
+  to {
+    opacity: 1;
+    transform: perspective(900px) translate3d(-50%, -50%, 0) rotateX(0deg);
+  }
+}
+
+@keyframes modalHide {
+  from {
+    opacity: 1;
+    transform: perspective(900px) translate3d(-50%, -50%, 0) rotateX(0deg);
+  }
+
+  to {
+    opacity: 0;
+    transform: perspective(900px) translate3d(-50%, 120px, 0) rotateX(90deg);
+  }
+}
+
+
+// injector
+@import 'main/main.less';
+@import 'element/element.less';
+@import 'help/help.less';
+@import 'menubar/menubar.less';
+@import 'toolbar/toolbar.less';
+// endinjector

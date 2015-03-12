@@ -1,0 +1,54 @@
+.toolbar {
+  position: absolute;
+  background-color: #1C1F25;
+  box-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2);
+  width: 30px;
+  z-index: 50;
+  left: 0;
+  top: 0;
+  margin-top: 70px;
+  padding: 10px 5px;
+  border-radius: 0 3px 3px 0;
+
+  ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+
+    li {
+      display: block;
+
+      &:not(:last-of-type) {
+          margin-bottom: 15px;
+      }
+
+      &.separator {
+        height: 1px;
+        background-color: #2D3035;
+      }
+
+      a {
+        display: block;
+        color: #ffffff;
+        line-height: 30px;
+        text-align: center;
+        border-radius: 3px;
+        cursor: pointer;
+
+        &.active {
+          box-shadow: inset 0 0 2px #000;
+          background-color: rgba(0, 0, 0, 0.3);
+        }
+
+        &:hover:not(.active) {
+          box-shadow: 0 0 2px #000;
+          background-color: rgba(255, 255, 255, 0.05);
+        }
+
+        &, &:hover, &.active {
+          transition: all .3s ease;
+        }
+      }
+    }
+  }
+}

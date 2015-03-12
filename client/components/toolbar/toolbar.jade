@@ -1,0 +1,21 @@
+div.toolbar(ng-controller='ToolbarCtrl')
+  ul
+    li
+      a(ng-click='mode(modes.Orbit)', ng-class='{"active": canvas.currentMode === modes.Orbit}' title='Positioning the camera')
+        i.icon.icon-move
+    li
+      a(ng-click='mode(modes.Editor)', ng-class='{"active": canvas.currentMode === modes.Editor}', title='Editing the molecule')
+        i.icon.icon-edit
+    li
+      a(ng-click='selectElement()', title='Choose the element from periodic table')
+        i.icon.icon-atom
+    li
+      a(ng-click='', title='Reposition the atoms')
+        i.icon.icon-pointer
+    li.separator
+    li
+      a(ng-click='help()', title='Help')
+        i.icon.icon-help
+    li
+      a(ng-click='', title='Source on github')
+        i.icon.icon-github

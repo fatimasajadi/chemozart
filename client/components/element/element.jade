@@ -1,0 +1,6 @@
+.major-elements
+  .quick
+    .element(ng-repeat='element in quick', ng-class='{"active": element.atomicNumber===canvas.data.element}', ng-click='setElement(element.atomicNumber)')
+      span.atomic-number(ng-bind='element.atomicNumber')
+      span.symbol(ng-bind='element.symbol')
+      span.name(ng-bind='element.name')
