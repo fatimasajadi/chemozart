@@ -6438,8 +6438,8 @@ THREE.Math = {
 // File:src/math/Spline.js
 
 /**
- * Spline from Tween.js, slightly optimized (and trashed)
- * http://sole.github.com/tween.js/examples/05_spline.html
+ * Spline from tween.js, slightly optimized (and trashed)
+ * http://sole.github.com/tween/examples/05_spline.html
  *
  * @author mrdoob / http://mrdoob.com/
  * @author alteredq / http://alteredqualia.com/

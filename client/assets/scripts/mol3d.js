@@ -126,6 +126,24 @@ var Canvas = (function () {
       enumerable: true,
       configurable: true
     },
+    getMolecule: {
+      value: function getMolecule() {
+        var molecule = new Chem.Molecule();
+
+        for (var i in this.atoms) {
+          molecule.addAtom(this.atoms[i]);
+        }
+
+        for (var i in this.bonds) {
+          molecule.addBond(this.bonds[i]);
+        }
+
+        return molecule;
+      },
+      writable: true,
+      enumerable: true,
+      configurable: true
+    },
     attach: {
       value: function attach(molecule) {
         for (var i in molecule.atoms) {
