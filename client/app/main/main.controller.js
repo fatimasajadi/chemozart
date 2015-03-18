@@ -1,8 +1,7 @@
 'use strict';
 
 angular.module('chemartApp')
-  .controller('MainCtrl', function ($scope) {
-    var canvas = new Mol3D.Canvas();
+  .controller('MainCtrl', function ($scope, $http, moleculeDrawer, canvas) {
 
     $scope.canvas = canvas;
     $scope.modes = Mol3D.Mode;
@@ -12,9 +11,6 @@ angular.module('chemartApp')
     };
 
     canvas.show();
-
-    canvas.setDisplay($scope.displays.BallAndStick);
-    canvas.setMode($scope.modes.Editor);
 
     var container = document.getElementById('canvas-container');
 
@@ -28,5 +24,29 @@ angular.module('chemartApp')
       canvas.renderer.setSize(this.innerWidth, this.innerHeight);
 
     });
+
+    $scope.build = function () {
+      var molecule = canvas.getMolecule();
+      $http.post('/api/geometry/build', molecule.toJSON()).success(function (data) {
+        var mol = Chem.Molecule.readJSON(data);
+        moleculeDrawer(mol);
+      });
+    };
+
+    $scope.addHydrogens = function () {
+      var molecule = canvas.getMolecule();
+      $http.post('/api/geometry/addhydrogens', molecule.toJSON()).success(function (data) {
+        var mol = Chem.Molecule.readJSON(data);
+        moleculeDrawer(mol);
+      });
+    };
+
+    $scope.help = function () {
+      angular.element(document.querySelector('help')).addClass('show');
+    };
+
+    $scope.about = function () {
+      angular.element(document.querySelector('about')).addClass('show');
+    };
 
   });

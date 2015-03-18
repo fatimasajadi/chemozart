@@ -15,17 +15,13 @@
   <meta name="description" content="">
   <meta name="viewport" content="width=device-width">
   <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
-  <!-- build:css(client) app/vendor.css -->
-  <!-- bower:css -->
-  <!-- endbower -->
-  <!-- endbuild -->
   <!-- build:css({.tmp,client}) app/app.css -->
   <link rel="stylesheet" href="assets/styles/icons.css">
   <link rel="stylesheet" href="app/app.css">
   <!-- injector:css -->
   <!-- endinjector -->
   <!-- endbuild -->
-  <link href='http://fonts.googleapis.com/css?family=Cabin' rel='stylesheet' type='text/css'>
+  <link href='//fonts.googleapis.com/css?family=Lato' rel='stylesheet' type='text/css'>
 </head>
 <body ng-app="chemartApp">
 <!--[if lt IE 7]>
@@ -44,6 +40,7 @@
 <script src="assets/scripts/three.js"></script>
 <script src="assets/scripts/chem.js"></script>
 <script src="assets/scripts/mol3d.js"></script>
+<script src="assets/scripts/tween.js"></script>
 <!-- bower:js -->
 <script src="bower_components/angular/angular.js"></script>
 <script src="bower_components/angular-resource/angular-resource.js"></script>
@@ -51,6 +48,8 @@
 <script src="bower_components/angular-sanitize/angular-sanitize.js"></script>
 <script src="bower_components/lodash/dist/lodash.compat.js"></script>
 <script src="bower_components/angular-ui-router/release/angular-ui-router.js"></script>
+<script src="bower_components/angular-animate/angular-animate.js"></script>
+<script src="bower_components/angular-busy/dist/angular-busy.js"></script>
 <!-- endbower -->
 <!-- endbuild -->
 
@@ -59,6 +58,11 @@
 <!-- injector:js -->
 <script src="app/main/main.controller.js"></script>
 <script src="app/main/main.js"></script>
+<script src="app/services/canvas.js"></script>
+<script src="app/services/center-atoms.js"></script>
+<script src="app/services/molecule-drawer.js"></script>
+<script src="app/services/storage.js"></script>
+<script src="components/about/about.directive.js"></script>
 <script src="components/element/element.directive.js"></script>
 <script src="components/help/help.directive.js"></script>
 <script src="components/menubar/menubar.controller.js"></script>

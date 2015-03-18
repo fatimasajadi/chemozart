@@ -1,13 +1,19 @@
 body {
   margin: 0;
   padding: 0;
-  font-family: 'Cabin', sans-serif;
+  font-family: Lato;
+}
+
+a {
+  &, &:active {
+    text-decoration: none;
+  }
 }
 
 @keyframes modalShow {
   from {
     opacity: 0;
-    transform: perspective(900px) translate3d(-50%, -120px, 0) rotateX(-90deg);
+    transform: perspective(900px) translate3d(-50%, -70%, 0) rotateX(-90deg);
   }
 
   to {
@@ -24,14 +30,27 @@ body {
 
   to {
     opacity: 0;
-    transform: perspective(900px) translate3d(-50%, 120px, 0) rotateX(90deg);
+    transform: perspective(900px) translate3d(-50%, 70%, 0) rotateX(90deg);
   }
 }
 
+.close {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  font-size: 1.5em;
+  cursor: pointer;
+
+  &:hover {
+    color: #303030;
+  }
+}
 
 // injector
 @import 'main/main.less';
+@import 'about/about.less';
 @import 'element/element.less';
+@import 'footer/footer.less';
 @import 'help/help.less';
 @import 'menubar/menubar.less';
 @import 'toolbar/toolbar.less';

@@ -7,8 +7,4 @@ angular.module('chemartApp')
       angular.element(document.querySelector('choose-element')).addClass('show');
     };
 
-    $scope.help = function () {
-      angular.element(document.querySelector('help')).addClass('show');
-    };
-
   });

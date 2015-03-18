@@ -1,21 +1,34 @@
-div.toolbar(ng-controller='ToolbarCtrl')
+div.menubar(ng-controller='MenubarCtrl')
   ul
     li
-      a(ng-click='', ng-class='{active: canvas.currentMode === Mol3D.Mode.Orbit}' title='Positioning the camera')
-        i.icon.icon-move
+      a File
+      ul
+        li
+          a(ng-click='canvas.clear()') New
+        li
+          a(ng-click='print()') Print
+
     li
-      a.active(ng-click='', title='Editing the molecule')
-        i.icon.icon-edit
+      a Edit
+      ul
+        li
+          a(ng-click='canvas.clear()') Clear
+
     li
-      a(ng-click='', title='Choose the element from periodic table')
-        i.icon.icon-atom
+      a Build
+      ul
+        li
+          a(ng-click='build()') Build 3D
+        li
+          a(ng-click='addHydrogens()') Add Hydrogens
+
     li
-      a(ng-click='', title='Reposition the atoms')
-        i.icon.icon-pointer
-    li.separator
-    li
-      a(ng-click='', title='Help')
-        i.icon.icon-help
-    li
-      a(ng-click='', title='Source on github')
-        i.icon.icon-github
+      a Help
+      ul
+        li
+          a(ng-click='help()') Help Topics
+        li
+          a(ng-click='about()') About
+
+  .logo
+    Chemozart
