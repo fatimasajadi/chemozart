@@ -15,6 +15,8 @@ angular.module('chemartApp')
 
         scope.setElement = function (atomicNumber) {
           scope.canvas.data.element = atomicNumber;
+
+          scope.close();
         };
 
         scope.quick = [
