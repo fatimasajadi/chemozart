@@ -229,7 +229,7 @@ module.exports = function (grunt) {
       target: {
         src: '<%= yeoman.client %>/index.html',
         ignorePath: '<%= yeoman.client %>/',
-        exclude: [/bootstrap-sass-official/, /bootstrap.js/, '/json3/', '/jquery/', '/es5-shim/', /bootstrap.css/, /font-awesome.css/]
+        exclude: [/bootstrap-sass-official/, /bootstrap.js/, '/json3/', '/jquery/', '/tween/', '/es5-shim/', /bootstrap.css/, /font-awesome.css/]
       }
     },
 
@@ -361,6 +361,8 @@ module.exports = function (grunt) {
             'bower_components/**/*',
             'assets/images/{,*/}*.{webp}',
             'assets/fonts/**/*',
+            'assets/scripts/**/*',
+            'assets/styles/**/*',
             'index.html'
           ]
         }, {
@@ -692,7 +694,7 @@ module.exports = function (grunt) {
     'concat',
     'ngAnnotate',
     'copy:dist',
-    'cdnify',
+    //'cdnify',
     'cssmin',
     'uglify',
     'rev',
