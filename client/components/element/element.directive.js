@@ -6,12 +6,15 @@ angular.module('chemartApp')
       restrict: 'E',
       link: function (scope, elem, attr) {
 
-        scope.setElement = function (atomicNumber) {
-          scope.canvas.data.element = atomicNumber;
+        scope.close = function () {
           elem.removeClass('show').addClass('hide');
           setTimeout(function () {
             elem.removeClass('hide');
           }, 1000);
+        };
+
+        scope.setElement = function (atomicNumber) {
+          scope.canvas.data.element = atomicNumber;
         };
 
         scope.quick = [

@@ -1,4 +1,12 @@
 .major-elements
+
+  a.close(ng-click='close()')
+    i.icon.icon-close
+
+  h1 Choose Elements
+
+  hr
+
   .quick
     .element(ng-repeat='element in quick', ng-class='{"active": element.atomicNumber===canvas.data.element}', ng-click='setElement(element.atomicNumber)')
       span.atomic-number(ng-bind='element.atomicNumber')
