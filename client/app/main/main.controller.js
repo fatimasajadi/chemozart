@@ -16,15 +16,6 @@ angular.module('chemartApp')
 
     angular.element(container).append(canvas.renderer.domElement);
 
-    angular.element(window).on('resize', function () {
-
-      canvas.camera.aspect = window.innerWidth / window.innerHeight;
-      canvas.camera.updateProjectionMatrix();
-
-      canvas.renderer.setSize(this.innerWidth, this.innerHeight);
-
-    });
-
     $scope.build = function () {
       var molecule = canvas.getMolecule();
       $http.post('/api/geometry/build', molecule.toJSON()).success(function (data) {

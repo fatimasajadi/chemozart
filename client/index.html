@@ -24,18 +24,21 @@
   <link href='//fonts.googleapis.com/css?family=Lato' rel='stylesheet' type='text/css'>
 </head>
 <body ng-app="chemartApp">
-<!--[if lt IE 7]>
-<p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade
-  your browser</a> to improve your experience.</p>
-<![endif]-->
+
+<div id="browsehappy">
+  <div class="content">
+    <h2>You are using an <strong>outdated</strong> browser.</h2>
+    <p>
+      Please <a href="http://browsehappy.com/">upgrade your browser</a> to be able to use this software.
+      <small>This application uses WebGL for 3D rendering.</small>
+    </p>
+  </div>
+</div>
 
 <!-- Add your site or application content here -->
 <div ui-view=""></div>
 
-<!--[if lt IE 9]>
-<script src="bower_components/es5-shim/es5-shim.js"></script>
-<script src="bower_components/json3/lib/json3.min.js"></script>
-<![endif]-->
+
 <!-- build:js({client,node_modules}) app/vendor.js -->
 <script src="assets/scripts/three.js"></script>
 <script src="assets/scripts/chem.js"></script>
