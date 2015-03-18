@@ -1,9 +1,12 @@
 'use strict';
 
 angular.module('chemartApp')
-  .controller('MainCtrl', function ($scope, $http, moleculeDrawer, canvas) {
+  .controller('MainCtrl', function ($scope, $http, moleculeDrawer, canvas, storage) {
 
     $scope.canvas = canvas;
+    $scope.storage = storage;
+    storage.new();
+
     $scope.modes = Mol3D.Mode;
     $scope.displays = Mol3D.Display;
     $scope.mode = function (mode) {
