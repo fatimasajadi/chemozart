@@ -3,11 +3,10 @@
 var ob = require('openbabel');
 var _ = require('lodash');
 
+var conversion = new ob.Conversion().setOutFormat('mol2').setInFormat('mol2');
+
 function readJSON(object) {
   var molecule = ob.Molecule.fromJSON(object);
-
-  var conversion = new ob.Conversion();
-  conversion.setOutFormat('mol2').setInFormat('mol2');
   return conversion.read(conversion.write(molecule));
 }
 
