@@ -8,7 +8,7 @@ var errors = require('./components/errors');
 
 module.exports = function(app) {
 
-  app.use('/api/geometry', require('./api/geometry'));
+  app.use('/api/build', require('./api/geometry'));
 
   // All undefined asset or api routes should return a 404
   app.route('/:url(api|auth|components|app|bower_components|assets)/*')
