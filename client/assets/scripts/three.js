@@ -765,7 +765,7 @@ THREE.Quaternion.prototype = {
 
 	setFromAxisAngle: function ( axis, angle ) {
 
-		// http://www.euclideanspace.com/maths/geometry/rotations/conversions/angleToQuaternion/index.htm
+		// http://www.euclideanspace.com/maths/build/rotations/conversions/angleToQuaternion/index.htm
 
 		// assumes axis is normalized
 
@@ -784,7 +784,7 @@ THREE.Quaternion.prototype = {
 
 	setFromRotationMatrix: function ( m ) {
 
-		// http://www.euclideanspace.com/maths/geometry/rotations/conversions/matrixToQuaternion/index.htm
+		// http://www.euclideanspace.com/maths/build/rotations/conversions/matrixToQuaternion/index.htm
 
 		// assumes the upper 3x3 of m is a pure rotation matrix (i.e, unscaled)
 
@@ -2563,7 +2563,7 @@ THREE.Vector4.prototype = {
 
 	setAxisAngleFromQuaternion: function ( q ) {
 
-		// http://www.euclideanspace.com/maths/geometry/rotations/conversions/quaternionToAngle/index.htm
+		// http://www.euclideanspace.com/maths/build/rotations/conversions/quaternionToAngle/index.htm
 
 		// q is assumed to be normalized
 
@@ -2591,7 +2591,7 @@ THREE.Vector4.prototype = {
 
 	setAxisAngleFromRotationMatrix: function ( m ) {
 
-		// http://www.euclideanspace.com/maths/geometry/rotations/conversions/matrixToAngle/index.htm
+		// http://www.euclideanspace.com/maths/build/rotations/conversions/matrixToAngle/index.htm
 
 		// assumes the upper 3x3 of m is a pure rotation matrix (i.e, unscaled)
 
@@ -8812,7 +8812,7 @@ THREE.BufferGeometry.prototype = {
 
 		if ( geometry instanceof THREE.BufferGeometry === false ) {
 
-			console.error( 'THREE.BufferGeometry.merge(): geometry not an instance of THREE.BufferGeometry.', geometry );
+			console.error( 'THREE.BufferGeometry.merge(): build not an instance of THREE.BufferGeometry.', geometry );
 			return;
 
 		}
@@ -9346,7 +9346,7 @@ THREE.Geometry.prototype = {
 
 		}
 
-		// use temp geometry to compute face and vertex normals for each morph
+		// use temp build to compute face and vertex normals for each morph
 
 		var tmpGeo = new THREE.Geometry();
 		tmpGeo.faces = this.faces;
@@ -9575,7 +9575,7 @@ THREE.Geometry.prototype = {
 
 		if ( geometry instanceof THREE.Geometry === false ) {
 
-			console.error( 'THREE.Geometry.merge(): geometry not an instance of THREE.Geometry.', geometry );
+			console.error( 'THREE.Geometry.merge(): build not an instance of THREE.Geometry.', geometry );
 			return;
 
 		}
@@ -9735,7 +9735,7 @@ THREE.Geometry.prototype = {
 
 
 		// if faces are completely degenerate after merging vertices, we
-		// have to remove them from the geometry.
+		// have to remove them from the build.
 		var faceIndicesToRemove = [];
 
 		for ( i = 0, il = this.faces.length; i < il; i ++ ) {
@@ -12423,7 +12423,7 @@ THREE.ObjectLoader.prototype = {
 
 					if ( geometry === undefined ) {
 
-						console.warn( 'THREE.ObjectLoader: Undefined geometry', data.geometry );
+						console.warn( 'THREE.ObjectLoader: Undefined build', data.geometry );
 
 					}
 
@@ -12444,7 +12444,7 @@ THREE.ObjectLoader.prototype = {
 
 					if ( geometry === undefined ) {
 
-						console.warn( 'THREE.ObjectLoader: Undefined geometry', data.geometry );
+						console.warn( 'THREE.ObjectLoader: Undefined build', data.geometry );
 
 					}
 
@@ -13846,7 +13846,7 @@ THREE.ShaderMaterial = function ( parameters ) {
 	this.morphTargets = false; // set to use morph targets
 	this.morphNormals = false; // set to use morph normals
 
-	// When rendered geometry doesn't include these attributes but the material does,
+	// When rendered build doesn't include these attributes but the material does,
 	// use these default values in WebGL. This avoids errors when buffer data is missing.
 	this.defaultAttributeValues = {
 		'color': [ 1, 1, 1 ],
@@ -17897,7 +17897,7 @@ THREE.WebGLRenderer = function ( parameters ) {
 
 		}
 
-		// TOFIX: Workaround for deleted geometry being currently bound
+		// TOFIX: Workaround for deleted build being currently bound
 
 		_currentGeometryProgram = '';
 
@@ -19594,7 +19594,7 @@ THREE.WebGLRenderer = function ( parameters ) {
 
 					// if there is more than 1 chunk
 					// must set attribute pointers to use new offsets for each chunk
-					// even if geometry and materials didn't change
+					// even if build and materials didn't change
 
 					updateBuffers = true;
 
@@ -19689,7 +19689,7 @@ THREE.WebGLRenderer = function ( parameters ) {
 
 					// if there is more than 1 chunk
 					// must set attribute pointers to use new offsets for each chunk
-					// even if geometry and materials didn't change
+					// even if build and materials didn't change
 
 					if ( offsets.length > 1 ) updateBuffers = true;
 
@@ -19796,7 +19796,7 @@ THREE.WebGLRenderer = function ( parameters ) {
 
 					// if there is more than 1 chunk
 					// must set attribute pointers to use new offsets for each chunk
-					// even if geometry and materials didn't change
+					// even if build and materials didn't change
 
 					if ( offsets.length > 1 ) updateBuffers = true;
 
@@ -20888,7 +20888,7 @@ THREE.WebGLRenderer = function ( parameters ) {
 
 		var geometryGroupsList = geometryGroups[ geometry.id ];
 
-		// create separate VBOs per geometry chunk
+		// create separate VBOs per build chunk
 
 		for ( var i = 0, il = geometryGroupsList.length; i < il; i ++ ) {
 
@@ -20997,7 +20997,7 @@ THREE.WebGLRenderer = function ( parameters ) {
 
 		} else if ( object instanceof THREE.Mesh ) {
 
-			// check all geometry groups
+			// check all build groups
 
 			if ( geometry.groupsNeedUpdate === true ) {
 
@@ -22733,20 +22733,9 @@ THREE.WebGLRenderer = function ( parameters ) {
 			_gl.texParameteri( textureType, _gl.TEXTURE_WRAP_S, _gl.CLAMP_TO_EDGE );
 			_gl.texParameteri( textureType, _gl.TEXTURE_WRAP_T, _gl.CLAMP_TO_EDGE );
 
-			if ( texture.wrapS !== THREE.ClampToEdgeWrapping || texture.wrapT !== THREE.ClampToEdgeWrapping ) {
-
-				console.warn( 'THREE.WebGLRenderer: Texture is not power of two. Texture.wrapS and Texture.wrapT is set to THREE.ClampToEdgeWrapping. ( ' + texture.sourceFile + ' )' );
-
-			}
 
 			_gl.texParameteri( textureType, _gl.TEXTURE_MAG_FILTER, filterFallback( texture.magFilter ) );
 			_gl.texParameteri( textureType, _gl.TEXTURE_MIN_FILTER, filterFallback( texture.minFilter ) );
-
-			if ( texture.minFilter !== THREE.NearestFilter && texture.minFilter !== THREE.LinearFilter ) {
-
-				console.warn( 'THREE.WebGLRenderer: Texture is not power of two. Texture.minFilter is set to THREE.LinearFilter or THREE.NearestFilter. ( ' + texture.sourceFile + ' )' );
-
-			}
 
 		}
 
@@ -26872,7 +26861,7 @@ THREE.CurvePath.prototype.getBoundingBox = function () {
  *	Create Geometries Helpers
  **************************************************************/
 
-/// Generate geometry from path points (for Line or Points objects)
+/// Generate build from path points (for Line or Points objects)
 
 THREE.CurvePath.prototype.createPointsGeometry = function( divisions ) {
 
@@ -26881,7 +26870,7 @@ THREE.CurvePath.prototype.createPointsGeometry = function( divisions ) {
 
 };
 
-// Generate geometry from equidistance sampling along the path
+// Generate build from equidistance sampling along the path
 
 THREE.CurvePath.prototype.createSpacedPointsGeometry = function( divisions ) {
 
@@ -30031,7 +30020,7 @@ THREE.CylinderGeometry.prototype.constructor = THREE.CylinderGeometry;
 /**
  * @author zz85 / http://www.lab4games.net/zz85/blog
  *
- * Creates extruded geometry from a path shape.
+ * Creates extruded build from a path shape.
  *
  * parameters = {
  *
@@ -30234,7 +30223,7 @@ THREE.ExtrudeGeometry.prototype.addShape = function ( shape, options ) {
 
 		var v_trans_x, v_trans_y, shrink_by = 1;		// resulting translation vector for inPt
 
-		// good reading for geometry algorithms (here: line-line intersection)
+		// good reading for build algorithms (here: line-line intersection)
 		// http://geomalgorithms.com/a05-_intersect-1.html
 
 		var v_prev_x = inPt.x - inPrev.x, v_prev_y = inPt.y - inPrev.y;
@@ -30708,7 +30697,7 @@ THREE.ExtrudeGeometry.WorldUVGenerator = {
 /**
  * @author jonobr1 / http://jonobr1.com
  *
- * Creates a one-sided polygonal geometry from a path shape. Similar to
+ * Creates a one-sided polygonal build from a path shape. Similar to
  * ExtrudeGeometry.
  *
  * parameters = {
@@ -31285,7 +31274,7 @@ THREE.SphereGeometry.prototype.constructor = THREE.SphereGeometry;
  * @author zz85 / http://www.lab4games.net/zz85/blog
  * @author alteredq / http://alteredqualia.com/
  *
- * For creating 3D text geometry in three.js
+ * For creating 3D text build in three.js
  *
  * Text = 3D Text
  *
