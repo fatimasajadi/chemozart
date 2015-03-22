@@ -5,6 +5,10 @@ angular.module('chemartApp')
     return {
       restrict: 'E',
       link: function (scope, elem) {
+        scope.about = function () {
+          elem.addClass('show');
+        };
+
         elem.on('click', function () {
           elem.removeClass('show').addClass('hide');
           setTimeout(function () {
