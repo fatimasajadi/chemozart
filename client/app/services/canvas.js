@@ -18,6 +18,6 @@ angular.module('chemartApp')
 
       return canvas;
     } else {
-      document.getElementById('browsehappy').style.display = 'block';
+      return null;
     }
   });
