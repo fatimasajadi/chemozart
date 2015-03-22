@@ -11,14 +11,10 @@ angular.module('chemartApp')
       for (i = molecule.atoms.length; i--;) {
         position = molecule.atoms[i].position;
 
-        avg.x += position.x;
-        avg.y += position.y;
-        avg.z += position.z;
+        avg.add(position);
       }
 
-      avg.x /= atomsCount;
-      avg.y /= atomsCount;
-      avg.z /= atomsCount;
+      avg.divideScalar(atomsCount);
 
       for (i = molecule.atoms.length; i--;) {
         position = molecule.atoms[i].position;
