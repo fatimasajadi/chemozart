@@ -11,8 +11,9 @@
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <base href="/">
-  <title>Chemozart</title>
-  <meta name="description" content="">
+  <title>Chemozart, Web-based Molecule Editor</title>
+  <meta name="description"
+        content="Chmozart is a web-based molecule editor and visualizer with molecular mechanics calculators">
   <meta name="viewport" content="width=device-width">
   <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
   <!-- build:css({.tmp,client}) app/app.css -->
@@ -25,15 +26,6 @@
 </head>
 <body ng-app="chemartApp">
 
-<div id="browsehappy">
-  <div class="content">
-    <h2>You are using an <strong>outdated</strong> browser.</h2>
-    <p>
-      Please <a href="http://browsehappy.com/">upgrade your browser</a> to be able to use this software.
-      <small>This application uses WebGL for 3D rendering.</small>
-    </p>
-  </div>
-</div>
 
 <!-- Add your site or application content here -->
 <div ui-view=""></div>
@@ -53,6 +45,7 @@
 <script src="bower_components/angular-ui-router/release/angular-ui-router.js"></script>
 <script src="bower_components/angular-animate/angular-animate.js"></script>
 <script src="bower_components/angular-busy/dist/angular-busy.js"></script>
+<script src="bower_components/angular-upload/angular-upload.js"></script>
 <!-- endbower -->
 <!-- endbuild -->
 
@@ -61,11 +54,14 @@
 <!-- injector:js -->
 <script src="app/main/main.controller.js"></script>
 <script src="app/main/main.js"></script>
+<script src="app/resources/builder.factory.js"></script>
 <script src="app/services/canvas.js"></script>
 <script src="app/services/center-atoms.js"></script>
+<script src="app/services/download.js"></script>
 <script src="app/services/molecule-drawer.js"></script>
 <script src="app/services/storage.js"></script>
 <script src="components/about/about.directive.js"></script>
+<script src="components/browsehappy/browsehappy.directive.js"></script>
 <script src="components/element/element.directive.js"></script>
 <script src="components/help/help.directive.js"></script>
 <script src="components/menubar/menubar.controller.js"></script>
