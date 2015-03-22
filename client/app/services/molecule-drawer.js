@@ -4,7 +4,7 @@ angular.module('chemartApp')
   .factory('moleculeDrawer', function (centerAtoms, canvas) {
     return function (molecule) {
       var currentMolecule = canvas.getMolecule();
-      var time = 200;
+      var time = 400;
 
       centerAtoms(molecule);
 
@@ -19,8 +19,6 @@ angular.module('chemartApp')
 
       var endTime = Date.now() + time;
 
-      animate();
-
       function animate() {
         if (Date.now() < endTime) {
           requestAnimationFrame(animate);
@@ -29,6 +27,8 @@ angular.module('chemartApp')
         TWEEN.update();
         canvas.update();
       }
+
+      requestAnimationFrame(animate);
 
       setTimeout(function () {
         canvas.clear();
