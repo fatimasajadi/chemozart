@@ -11,8 +11,8 @@ angular.module('chemartApp')
     storage.new = function () {
       var date = new Date();
       var name = 'Untitled-' + date.getFullYear() + date.getMonth() + date.getDate() + '-' + date.getHours() + date.getMinutes() + date.getSeconds();
-      this.data[name] = [];
       canvas.clear();
+      this.data[name] = canvas.getMolecule().toJSON();
 
       this.setCurrent(name);
     };
@@ -44,9 +44,7 @@ angular.module('chemartApp')
     };
 
     storage.get = function (name) {
-      var molecule = Chem.Molecule.readJSON(this.data[name]);
-
-      return molecule;
+      return Chem.Molecule.readJSON(this.data[name]);
     };
 
     storage.rename = function (oldName, newName) {
@@ -80,6 +78,11 @@ angular.module('chemartApp')
     };
 
     storage.setCurrent = function (name) {
+      if (this.current && (typeof this.data[this.current] === 'undefined' || this.data[this.current].atoms.length === 0)) {
+        delete this.data[this.current];
+        this.save(true);
+      }
+
       this.current = name;
     };
 
