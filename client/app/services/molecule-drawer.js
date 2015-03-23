@@ -2,7 +2,8 @@
 
 angular.module('chemartApp')
   .factory('moleculeDrawer', function (centerAtoms, canvas) {
-    return function (molecule) {
+    var drawer = {};
+    drawer.animate = function (molecule) {
       var currentMolecule = canvas.getMolecule();
       var time = 400;
 
@@ -31,8 +32,14 @@ angular.module('chemartApp')
       requestAnimationFrame(animate);
 
       setTimeout(function () {
-        canvas.clear();
-        canvas.attach(molecule);
+        drawer.draw(molecule);
       }, time);
     };
+
+    drawer.draw = function (molecule) {
+      canvas.clear();
+      canvas.attach(molecule);
+    };
+
+    return drawer;
   });
