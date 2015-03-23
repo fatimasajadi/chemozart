@@ -1,10 +1,20 @@
 'use strict';
 
 angular.module('chemartApp')
-  .directive('help', function () {
+  .directive('help', function (hotkeys) {
+
     return {
       restrict: 'E',
       link: function (scope, elem) {
+        hotkeys.add({
+          combo: 'f1',
+          description: 'Help',
+          callback: function(event) {
+            event.preventDefault();
+            scope.help();
+          }
+        });
+
         scope.help = function () {
           elem.addClass('show');
         };

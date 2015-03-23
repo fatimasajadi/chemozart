@@ -1,10 +1,10 @@
 div.toolbar(ng-controller='ToolbarCtrl')
   ul
     li
-      a(ng-click='mode(modes.Orbit)', ng-class='{"active": canvas.currentMode === modes.Orbit}' title='Positioning the camera')
+      a(ng-click='mode(modes.Orbit)', ng-class='{"active": canvas.currentMode === modes.Orbit}' title='Positioning the camera (V)')
         i.icon.icon-move
     li
-      a(ng-click='mode(modes.Editor)', ng-class='{"active": canvas.currentMode === modes.Editor}', title='Editing the molecule')
+      a(ng-click='mode(modes.Editor)', ng-class='{"active": canvas.currentMode === modes.Editor}', title='Editing the molecule (E)')
         i.icon.icon-edit
     li
       a(ng-click='selectElement()', title='Choose the element from periodic table')
@@ -14,7 +14,7 @@ div.toolbar(ng-controller='ToolbarCtrl')
         i.icon.icon-pointer
     li.separator
     li
-      a(ng-click='help()', title='Help')
+      a(ng-click='help()', title='Help (F1)')
         i.icon.icon-help
     li
       a(href='https://github.com/mohebifar/chemozart', target='_blank', title='Source on Github')

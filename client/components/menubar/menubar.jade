@@ -5,32 +5,61 @@ div.menubar(ng-controller='MenubarCtrl')
       ul
         li
           a(ng-click='canvas.clear()') New
+            span.shortcut CTRL + B
+        li
+          a Open ...
+          ul.large
+            li(ng-repeat='item in storage.list()', ng-if='item !== storage.current')
+              a(ng-click='storage.load(item)') {{ item }}
+            li.disabled(ng-if='storage.list().length === 1')
+              span No other files exist
+        li
+          a(ng-click='storage.save()') Save
+            span.shortcut CTRL + S
+        li
+          a(ng-click='storage.delete(storage.current)') Delete
+            span.shortcut CTRL + DEL
+        li.separator
+        li
+          a Import
+        li
+          a Export ...
+          ul
+            li(ng-repeat='(key, format) in conversion.formats')
+              a(ng-click='conversion.export(key)') {{ format }}
+        li.separator
         li
           a(ng-click='print()') Print
+            span.shortcut CTRL + P
 
     li
       a Edit
       ul
         li
           a(ng-click='canvas.clear()') Clear
+            span.shortcut CTRL + K
 
     li
       a Build
       ul
         li
-          a(ng-click='build()') Build 3D
+          a(ng-click='builder.build3d()') Build 3D
         li
-          a(ng-click='addHydrogens()') Add Hydrogens
+          a(ng-click='builder.addHydrogens()') Add Hydrogens
 
     li
       a Help
       ul
         li
           a(ng-click='help()') Help Topics
+            span.shortcut F1
+        li
+          a(href='https://github.com/mohebifar/chemozart/issues', target='_blank') Report issues
+        li.separator
         li
           a(ng-click='about()') About
 
-  .right
+  .right.hidden-tablet
     .name {{ storage.current }}
     | -
     .logo CHEMOZART v1.0
