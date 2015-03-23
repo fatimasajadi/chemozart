@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('chemartApp')
-  .controller('MainCtrl', function ($scope, $http, $download, moleculeDrawer, canvas, storage, builder) {
+  .controller('MainCtrl', function ($scope, conversion, canvas, storage, builder, notify) {
 
     if (canvas === null) {
       return;
@@ -11,6 +11,7 @@ angular.module('chemartApp')
     $scope.canvas = canvas;
     $scope.storage = storage;
     $scope.builder = builder;
+    $scope.conversion = conversion;
     $scope.modes = Mol3D.Mode;
     $scope.displays = Mol3D.Display;
 
@@ -28,4 +29,7 @@ angular.module('chemartApp')
     var container = document.getElementById('canvas-container');
     angular.element(container).append(canvas.renderer.domElement);
 
+    notify({
+      message: 'Application started, Do the art !'
+    });
   });
