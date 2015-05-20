@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('chemartApp')
-  .factory('storage', function (moleculeDrawer, canvas, notify) {
+  .factory('storage', function (moleculeDrawer, canvas, notify, status) {
 
     var storage = {
       data: angular.fromJson(localStorage.molecules || '{}'),
@@ -13,26 +13,30 @@ angular.module('chemartApp')
       var name = 'Untitled-' + date.getFullYear() + date.getMonth() + date.getDate() + '-' + date.getHours() + date.getMinutes() + date.getSeconds();
       canvas.clear();
       this.data[name] = canvas.getMolecule().toJSON();
+      status('New document has been created.');
 
       this.setCurrent(name);
     };
 
     storage.save = function (notSet) {
       if (typeof notSet === 'undefined' && this.current) {
+        var message;
         this.data[this.current] = canvas.getMolecule().toJSON();
 
-
         if (canvas.atoms.length === 0) {
-          notify({
+          message = {
             message: 'The molecule should have atoms to be saved.',
             classes: ['error']
-          });
+          };
         } else {
-          notify({
+          message = {
             message: '"' + this.current + '" has been saved !',
             classes: ['success']
-          });
+          };
         }
+
+        notify(message);
+        status(message.message);
 
       }
 
@@ -78,7 +82,7 @@ angular.module('chemartApp')
     };
 
     storage.setCurrent = function (name) {
-      if (this.current && (typeof this.data[this.current] === 'undefined' || this.data[this.current].atoms.length === 0)) {
+      if (this.current && this.data[this.current].atoms.length === 0) {
         delete this.data[this.current];
         this.save(true);
       }
@@ -95,6 +99,8 @@ angular.module('chemartApp')
           message: '"' + name + '" has been loaded !',
           classes: ['success']
         });
+
+        status(name + ' has been loaded.');
 
         moleculeDrawer.draw(molecule);
         return true;

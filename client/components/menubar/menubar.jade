@@ -9,7 +9,7 @@ div.menubar(ng-controller='MenubarCtrl')
         li
           a Open ...
           ul.large
-            li(ng-repeat='item in storage.list()', ng-if='item !== storage.current')
+            li(ng-repeat='(item, val) in storage.data', ng-if='item !== storage.current')
               a(ng-click='storage.load(item)') {{ item }}
             li.disabled(ng-if='storage.list().length === 1')
               span No other files exist
@@ -46,6 +46,16 @@ div.menubar(ng-controller='MenubarCtrl')
           a(ng-click='builder.build3d()') Build 3D
         li
           a(ng-click='builder.addHydrogens()') Add Hydrogens
+
+    li
+      a Energy
+      ul
+        li
+          a(ng-click='energy.getEnergy("mmff94")') MMFF94
+        li
+          a(ng-click='energy.getEnergy("uff")') UFF
+        li
+          a(ng-click='energy.getEnergy("ghemical")') Ghemical
 
     li
       a Help
