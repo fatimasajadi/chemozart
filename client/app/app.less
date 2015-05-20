@@ -1,7 +1,7 @@
 body {
   margin: 0;
   padding: 0;
-  font-family: Lato, Calibri, sans;
+  font-family: RobotoDraft, Roboto, 'Helvetica Neue', sans-serif;
 }
 
 // injector
@@ -12,10 +12,18 @@ body {
 @import 'footer/footer.less';
 @import 'help/help.less';
 @import 'menubar/menubar.less';
+@import 'statusbar/statusbar.less';
 @import 'toolbar/toolbar.less';
 // endinjector
 
 a {
+  color: #466266;
+  cursor: pointer;
+
+  &:hover {
+    color: #708B91;
+  }
+
   &, &:active {
     text-decoration: none;
   }
@@ -61,8 +69,8 @@ hr {
   background: none;
   height: 0;
   border: none;
-  border-top: 1px solid rgba(40, 40, 40, 0.4);
-  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+  border-top: 1px solid rgba(40, 40, 40, 0.1);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.15);
 }
 
 @media print {
