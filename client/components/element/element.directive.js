@@ -1,10 +1,12 @@
 'use strict';
 
 angular.module('chemartApp')
-  .directive('chooseElement', function () {
+  .directive('chooseElement', function (canvas) {
     return {
       restrict: 'E',
+      scope: {},
       link: function (scope, elem, attr) {
+        scope.canvas = canvas;
 
         scope.close = function () {
           elem.removeClass('show').addClass('hide');
@@ -14,7 +16,7 @@ angular.module('chemartApp')
         };
 
         scope.setElement = function (atomicNumber) {
-          scope.canvas.data.element = atomicNumber;
+          canvas.data.element = atomicNumber;
 
           scope.close();
         };
@@ -26,6 +28,11 @@ angular.module('chemartApp')
           Chem.Element.findByAtomicNumber(8),
           Chem.Element.findByAtomicNumber(16)
         ];
+
+        scope.showTable = function () {
+          scope.close();
+          angular.element(document.querySelector('periodic-table')).addClass('show');
+        };
       },
       templateUrl: 'components/element/element.html'
     }

@@ -4,15 +4,15 @@
   transition: .3s all ease;
 }
 
-choose-element {
+choose-element, periodic-table {
   position: fixed;
   left: 50%;
   top: 50%;
+  max-width: 95%;
   z-index: 200;
   padding: 45px 15px 15px;
   background-color: rgba(210, 210, 220, 0.75);
   border: 1px solid rgba(0, 0, 0, 0.2);
-
   border-radius: 3px;
   transform: perspective(900px) translate3d(-50%, -50%, 0) rotateX(0deg);
   transform-origin: 0 50%;
@@ -37,54 +37,6 @@ choose-element {
     font-weight: normal;
   }
 
-  .element {
-    width: 48px;
-    height: 54px;
-    background-color: @non-metal;
-    text-align: center;
-    position: relative;
-    color: #FFFFFF;
-    border: 2px solid darken(@non-metal, 5%);
-    opacity: .8;
-    cursor: pointer;
-
-    &:extend(.element-transition);
-
-    &:hover {
-      opacity: 1;
-      &:extend(.element-transition);
-    }
-
-    &.active {
-      box-shadow: 2px 2px 1px rgba(0, 0, 0, 0.22);
-      opacity: .9;
-    }
-
-    span {
-      display: block;
-      height: 20%;
-
-      &.atomic-number {
-        text-align: right;
-        padding: 2px 2px 0 0;
-        font-size: .7em;
-      }
-
-      &.symbol {
-        font-size: 1.3em;
-      }
-
-      &.name {
-        margin-top: 15px;
-        font-size: .6em;
-        overflow: hidden;
-        text-overflow: ellipsis;
-      }
-
-    }
-
-  }
-
   .quick {
 
     > .element {
@@ -101,6 +53,55 @@ choose-element {
       content: '';
       clear: both;
       display: block;
+    }
+
+  }
+
+}
+
+
+.element {
+  width: 48px;
+  height: 54px;
+  background-color: @non-metal;
+  text-align: center;
+  position: relative;
+  color: #FFFFFF;
+  border: 2px solid darken(@non-metal, 5%);
+  opacity: .8;
+  cursor: pointer;
+
+  &:extend(.element-transition);
+
+  &:hover {
+    opacity: 1;
+    &:extend(.element-transition);
+  }
+
+  &.active {
+    box-shadow: 2px 2px 1px rgba(0, 0, 0, 0.22);
+    opacity: .9;
+  }
+
+  span {
+    display: block;
+    height: 20%;
+
+    &.atomic-number {
+      text-align: right;
+      padding: 2px 2px 0 0;
+      font-size: .7em;
+    }
+
+    &.symbol {
+      font-size: 1.3em;
+    }
+
+    &.name {
+      margin-top: 15px;
+      font-size: .6em;
+      overflow: hidden;
+      text-overflow: ellipsis;
     }
 
   }

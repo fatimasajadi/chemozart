@@ -1,0 +1,18 @@
+.major-elements
+
+  a.close
+    i.icon.icon-close
+
+  h1 Choose element from periodic table
+
+  hr
+
+  table
+    tbody
+      tr(ng-repeat='row in periodicTable')
+        td(ng-repeat='element in row', colspan='{{element.atomicNumber ? 1 : element}}')
+          div(ng-if='element.atomicNumber')
+            .element(ng-class='{"active": element.atomicNumber===canvas.data.element}', ng-click='setElement(element.atomicNumber)')
+              span.atomic-number(ng-bind='element.atomicNumber')
+              span.symbol(ng-bind='element.symbol')
+              span.name(ng-bind='element.name')
