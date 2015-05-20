@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('chemartApp')
-  .controller('MainCtrl', function ($scope, conversion, canvas, storage, builder, notify) {
+  .controller('MainCtrl', function ($scope, energy, conversion, canvas, storage, builder, notify) {
 
     if (canvas === null) {
       return;
@@ -9,6 +9,7 @@ angular.module('chemartApp')
 
     // Assign scope values
     $scope.canvas = canvas;
+    $scope.energy = energy;
     $scope.storage = storage;
     $scope.builder = builder;
     $scope.conversion = conversion;
