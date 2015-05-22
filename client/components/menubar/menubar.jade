@@ -21,7 +21,7 @@ div.menubar(ng-controller='MenubarCtrl')
             span.shortcut CTRL + DEL
         li.separator
         li
-          a Import
+          a(ngf-select, ngf-change='import($files)') Import
         li
           a Export ...
           ul

@@ -7,7 +7,8 @@ angular.module('chemartApp', [
   'ui.router',
   'cfp.hotkeys',
   'lr.upload',
-  'cgNotify'
+  'cgNotify',
+  'ngFileUpload'
 ])
   .config(function ($stateProvider, $urlRouterProvider, $locationProvider) {
     $urlRouterProvider
