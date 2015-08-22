@@ -10,7 +10,7 @@ div.toolbar(ng-controller='ToolbarCtrl')
       a(ng-click='selectElement()', title='Choose the element from periodic table')
         i.icon.icon-atom
     li
-      a(ng-click='', title='Reposition the atoms')
+      a(ng-click='mode(modes.Reposition)', ng-class='{"active": canvas.currentMode === modes.Reposition}', title='Reposition the atoms')
         i.icon.icon-pointer
     li.separator
     li
