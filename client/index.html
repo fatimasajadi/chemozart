@@ -10,7 +10,6 @@
 <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <base href="/">
   <title>Chemozart, Web-based Molecule Editor</title>
   <meta name="description"
         content="Chmozart is a web-based molecule editor and visualizer with molecular mechanics calculators">
@@ -32,6 +31,7 @@
 
 
 <!-- build:js({client,node_modules}) app/vendor.js -->
+<script src="assets/scripts/browser-polyfill.js"></script>
 <script src="assets/scripts/three.js"></script>
 <script src="assets/scripts/chem.js"></script>
 <script src="assets/scripts/mol3d.js"></script>

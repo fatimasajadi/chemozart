@@ -13,8 +13,6 @@ angular.module('chemartApp', [
   .config(function ($stateProvider, $urlRouterProvider, $locationProvider) {
     $urlRouterProvider
       .otherwise('/');
-
-    $locationProvider.html5Mode(true);
   })
   .run(function (notify) {
     notify.config({
