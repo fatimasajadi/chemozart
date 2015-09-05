@@ -1,100 +1,125 @@
-(function(root) {
-"use strict";
+(function (root) {
+  'use strict';
 
-var _get = function get(object, property, receiver) {
-  var desc = Object.getOwnPropertyDescriptor(object, property);
-
-  if (desc === undefined) {
-    var parent = Object.getPrototypeOf(object);
-
-    if (parent === null) {
-      return undefined;
-    } else {
-      return get(parent, property, receiver);
+  var _createClass = (function () {
+    function defineProperties(target, props) {
+      for (var i = 0; i < props.length; i++) {
+        var descriptor = props[i];
+        descriptor.enumerable = descriptor.enumerable || false;
+        descriptor.configurable = true;
+        if ('value' in descriptor) descriptor.writable = true;
+        Object.defineProperty(target, descriptor.key, descriptor);
+      }
     }
-  } else if ("value" in desc && desc.writable) {
-    return desc.value;
-  } else {
-    var getter = desc.get;
-    if (getter === undefined) {
-      return undefined;
+
+    return function (Constructor, protoProps, staticProps) {
+      if (protoProps) defineProperties(Constructor.prototype, protoProps);
+      if (staticProps) defineProperties(Constructor, staticProps);
+      return Constructor;
+    };
+  })();
+
+  var _get = function get(_x, _x2, _x3) {
+    var _again = true;
+    _function: while (_again) {
+      var object = _x, property = _x2, receiver = _x3;
+      desc = parent = getter = undefined;
+      _again = false;
+      if (object === null) object = Function.prototype;
+      var desc = Object.getOwnPropertyDescriptor(object, property);
+      if (desc === undefined) {
+        var parent = Object.getPrototypeOf(object);
+        if (parent === null) {
+          return undefined;
+        } else {
+          _x = parent;
+          _x2 = property;
+          _x3 = receiver;
+          _again = true;
+          continue _function;
+        }
+      } else if ('value' in desc) {
+        return desc.value;
+      } else {
+        var getter = desc.get;
+        if (getter === undefined) {
+          return undefined;
+        }
+        return getter.call(receiver);
+      }
     }
-    return getter.call(receiver);
+  };
+
+  function _classCallCheck(instance, Constructor) {
+    if (!(instance instanceof Constructor)) {
+      throw new TypeError('Cannot call a class as a function');
+    }
   }
-};
 
-var _inherits = function (subClass, superClass) {
-  if (typeof superClass !== "function" && superClass !== null) {
-    throw new TypeError("Super expression must either be null or a function, not " + typeof superClass);
-  }
-  subClass.prototype = Object.create(superClass && superClass.prototype, {
-    constructor: {
-      value: subClass,
-      enumerable: false,
-      writable: true,
-      configurable: true
+  function _inherits(subClass, superClass) {
+    if (typeof superClass !== 'function' && superClass !== null) {
+      throw new TypeError('Super expression must either be null or a function, not ' + typeof superClass);
     }
-  });
-  if (superClass) subClass.__proto__ = superClass;
-};
-
-var _prototypeProperties = function (child, staticProps, instanceProps) {
-  if (staticProps) Object.defineProperties(child, staticProps);
-  if (instanceProps) Object.defineProperties(child.prototype, instanceProps);
-};
-
-var Canvas = (function () {
-  function Canvas() {
-    this.scene = new THREE.Scene();
-    this.camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 10000);
-    this.camera.position.z = 5;
-    this.renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
-    this.renderer.setSize(window.innerWidth, window.innerHeight);
-    this.renderer.setClearColor(0, 0);
-    this.currentMode = null;
-
-    this.renderer.domElement.addEventListener("contextmenu", function (e) {
-      e.preventDefault();
-      return false;
+    subClass.prototype = Object.create(superClass && superClass.prototype, {
+      constructor: {
+        value: subClass,
+        enumerable: false,
+        writable: true,
+        configurable: true
+      }
     });
-
-    this.group = new THREE.Object3D();
-    this.scene.add(this.group);
-
-    this.atoms = [];
-    this.bonds = [];
-
-    this._displays = [];
-    this._display = null;
-
-    this._modes = [];
-    this._mode = null;
-
-    this.data = {};
-
-    this.setData("element", 6);
+    if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass;
   }
 
-  _prototypeProperties(Canvas, null, {
-    setData: {
+  var Canvas = (function () {
+    function Canvas() {
+      _classCallCheck(this, Canvas);
 
-      /**
-       * Inject some data
-       *
-       * @method setData
-       * @param key
-       * @param value
-       * @returns {*}
-       */
+      this.scene = new THREE.Scene();
+      this.camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 10000);
+      this.camera.position.z = 5;
+      this.renderer = new THREE.WebGLRenderer({antialias: true, alpha: true});
+      this.renderer.setSize(window.innerWidth, window.innerHeight);
+      this.renderer.setClearColor(0x000000, 0);
+      this.currentMode = null;
+
+      this.renderer.domElement.addEventListener('contextmenu', function (e) {
+        e.preventDefault();
+        return false;
+      });
+
+      this.group = new THREE.Object3D();
+      this.scene.add(this.group);
+
+      this.atoms = [];
+      this.bonds = [];
+
+      this._displays = [];
+      this._display = null;
+
+      this._modes = [];
+      this._mode = null;
+
+      this.data = {};
+
+      this.setData('element', 6);
+    }
+
+    /**
+     * Inject some data
+     *
+     * @method setData
+     * @param key
+     * @param value
+     * @returns {*}
+     */
+
+    _createClass(Canvas, [{
+      key: 'setData',
       value: function setData(key, value) {
         this.data[key] = value;
         return this;
-      },
-      writable: true,
-      enumerable: true,
-      configurable: true
-    },
-    getData: {
+      }
 
       /**
        * Get injected data
@@ -103,14 +128,11 @@ var Canvas = (function () {
        * @param key
        * @returns {*}
        */
+    }, {
+      key: 'getData',
       value: function getData(key) {
         return this.data[key];
-      },
-      writable: true,
-      enumerable: true,
-      configurable: true
-    },
-    hasData: {
+      }
 
       /**
        * Checks if data with given key exists
@@ -119,14 +141,13 @@ var Canvas = (function () {
        * @param key
        * @returns {boolean}
        */
+    }, {
+      key: 'hasData',
       value: function hasData(key) {
-        return typeof this.data[key] !== "undefined";
-      },
-      writable: true,
-      enumerable: true,
-      configurable: true
-    },
-    getMolecule: {
+        return typeof this.data[key] !== 'undefined';
+      }
+    }, {
+      key: 'getMolecule',
       value: function getMolecule() {
         var molecule = new Chem.Molecule();
 
@@ -139,32 +160,30 @@ var Canvas = (function () {
         }
 
         return molecule;
-      },
-      writable: true,
-      enumerable: true,
-      configurable: true
-    },
-    attach: {
+      }
+    }, {
+      key: 'attach',
       value: function attach(molecule) {
         for (var i in molecule.atoms) {
           var atom = molecule.atoms[i];
 
           this.addAtom(atom);
         }
-      },
-      writable: true,
-      enumerable: true,
-      configurable: true
-    },
-    addAtom: {
+      }
+    }, {
+      key: 'addAtom',
       value: function addAtom(atom) {
         var _this = this;
-        var drawBonds = arguments[1] === undefined ? true : arguments[1];
+
+        var drawBonds = arguments.length <= 1 || arguments[1] === undefined ? true : arguments[1];
+
         this.atoms.push(atom);
 
-        atom.on("bond", function () {});
+        atom.on('bond', function () {
+          // TODO: draw cylinder dynamically
+        });
 
-        atom.on("delete", function () {
+        atom.on('delete', function () {
           for (var i in _this._displays) {
             var _display = _this._displays[i];
             _display.removeAtom(atom);
@@ -180,47 +199,117 @@ var Canvas = (function () {
             this.addBond(atom.bonds[i]);
           }
         }
-      },
-      writable: true,
-      enumerable: true,
-      configurable: true
-    },
-    update: {
+      }
+    }, {
+      key: 'update',
       value: function update() {
-        for (var _iterator = this.atoms[Symbol.iterator](), _step; !(_step = _iterator.next()).done;) {
-          var atom = _step.value;
-          for (var _iterator2 = this._displays[Symbol.iterator](), _step2; !(_step2 = _iterator2.next()).done;) {
-            var display = _step2.value;
-            display.drawAtom(atom);
+        var _iteratorNormalCompletion = true;
+        var _didIteratorError = false;
+        var _iteratorError = undefined;
+
+        try {
+          for (var _iterator = this.atoms[Symbol.iterator](), _step; !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true) {
+            var atom = _step.value;
+            var _iteratorNormalCompletion3 = true;
+            var _didIteratorError3 = false;
+            var _iteratorError3 = undefined;
+
+            try {
+              for (var _iterator3 = this._displays[Symbol.iterator](), _step3; !(_iteratorNormalCompletion3 = (_step3 = _iterator3.next()).done); _iteratorNormalCompletion3 = true) {
+                var display = _step3.value;
+
+                display.drawAtom(atom);
+              }
+            } catch (err) {
+              _didIteratorError3 = true;
+              _iteratorError3 = err;
+            } finally {
+              try {
+                if (!_iteratorNormalCompletion3 && _iterator3['return']) {
+                  _iterator3['return']();
+                }
+              } finally {
+                if (_didIteratorError3) {
+                  throw _iteratorError3;
+                }
+              }
+            }
+          }
+        } catch (err) {
+          _didIteratorError = true;
+          _iteratorError = err;
+        } finally {
+          try {
+            if (!_iteratorNormalCompletion && _iterator['return']) {
+              _iterator['return']();
+            }
+          } finally {
+            if (_didIteratorError) {
+              throw _iteratorError;
+            }
           }
         }
 
-        for (var _iterator3 = this.bonds[Symbol.iterator](), _step3; !(_step3 = _iterator3.next()).done;) {
-          var bond = _step3.value;
-          for (var _iterator4 = this._displays[Symbol.iterator](), _step4; !(_step4 = _iterator4.next()).done;) {
-            var display = _step4.value;
-            display.drawBond(bond);
+        var _iteratorNormalCompletion2 = true;
+        var _didIteratorError2 = false;
+        var _iteratorError2 = undefined;
+
+        try {
+          for (var _iterator2 = this.bonds[Symbol.iterator](), _step2; !(_iteratorNormalCompletion2 = (_step2 = _iterator2.next()).done); _iteratorNormalCompletion2 = true) {
+            var bond = _step2.value;
+            var _iteratorNormalCompletion4 = true;
+            var _didIteratorError4 = false;
+            var _iteratorError4 = undefined;
+
+            try {
+              for (var _iterator4 = this._displays[Symbol.iterator](), _step4; !(_iteratorNormalCompletion4 = (_step4 = _iterator4.next()).done); _iteratorNormalCompletion4 = true) {
+                var display = _step4.value;
+
+                display.drawBond(bond);
+              }
+            } catch (err) {
+              _didIteratorError4 = true;
+              _iteratorError4 = err;
+            } finally {
+              try {
+                if (!_iteratorNormalCompletion4 && _iterator4['return']) {
+                  _iterator4['return']();
+                }
+              } finally {
+                if (_didIteratorError4) {
+                  throw _iteratorError4;
+                }
+              }
+            }
+          }
+        } catch (err) {
+          _didIteratorError2 = true;
+          _iteratorError2 = err;
+        } finally {
+          try {
+            if (!_iteratorNormalCompletion2 && _iterator2['return']) {
+              _iterator2['return']();
+            }
+          } finally {
+            if (_didIteratorError2) {
+              throw _iteratorError2;
+            }
           }
         }
-      },
-      writable: true,
-      enumerable: true,
-      configurable: true
-    },
-    removeAtom: {
+      }
+    }, {
+      key: 'removeAtom',
       value: function removeAtom(atom) {
-        atom.emit("delete");
-      },
-      writable: true,
-      enumerable: true,
-      configurable: true
-    },
-    addBond: {
+        atom.emit('delete');
+      }
+    }, {
+      key: 'addBond',
       value: function addBond(bond) {
         var _this2 = this;
+
         this.bonds.push(bond);
 
-        bond.on("delete", function () {
+        bond.on('delete', function () {
           for (var i in _this2._displays) {
             var _display = _this2._displays[i];
             _display.removeBond(bond);
@@ -229,41 +318,71 @@ var Canvas = (function () {
           _this2.bonds.splice(_this2.bonds.indexOf(bond), 1);
         });
 
-
         this._display.drawBond(bond);
-      },
-      writable: true,
-      enumerable: true,
-      configurable: true
-    },
-    removeBond: {
+      }
+    }, {
+      key: 'removeBond',
       value: function removeBond(bond) {
-        bond.emit("delete");
-      },
-      writable: true,
-      enumerable: true,
-      configurable: true
-    },
-    clear: {
+        bond.emit('delete');
+      }
+    }, {
+      key: 'clear',
       value: function clear() {
         var atoms = this.atoms.slice(0, this.atoms.length);
         var bonds = this.bonds.slice(0, this.bonds.length);
 
-        for (var _iterator5 = atoms[Symbol.iterator](), _step5; !(_step5 = _iterator5.next()).done;) {
-          var atom = _step5.value;
-          this.removeAtom(atom);
+        var _iteratorNormalCompletion5 = true;
+        var _didIteratorError5 = false;
+        var _iteratorError5 = undefined;
+
+        try {
+          for (var _iterator5 = atoms[Symbol.iterator](), _step5; !(_iteratorNormalCompletion5 = (_step5 = _iterator5.next()).done); _iteratorNormalCompletion5 = true) {
+            var atom = _step5.value;
+
+            this.removeAtom(atom);
+          }
+        } catch (err) {
+          _didIteratorError5 = true;
+          _iteratorError5 = err;
+        } finally {
+          try {
+            if (!_iteratorNormalCompletion5 && _iterator5['return']) {
+              _iterator5['return']();
+            }
+          } finally {
+            if (_didIteratorError5) {
+              throw _iteratorError5;
+            }
+          }
         }
 
-        for (var _iterator6 = bonds[Symbol.iterator](), _step6; !(_step6 = _iterator6.next()).done;) {
-          var bond = _step6.value;
-          this.removeBond(bond);
+        var _iteratorNormalCompletion6 = true;
+        var _didIteratorError6 = false;
+        var _iteratorError6 = undefined;
+
+        try {
+          for (var _iterator6 = bonds[Symbol.iterator](), _step6; !(_iteratorNormalCompletion6 = (_step6 = _iterator6.next()).done); _iteratorNormalCompletion6 = true) {
+            var bond = _step6.value;
+
+            this.removeBond(bond);
+          }
+        } catch (err) {
+          _didIteratorError6 = true;
+          _iteratorError6 = err;
+        } finally {
+          try {
+            if (!_iteratorNormalCompletion6 && _iterator6['return']) {
+              _iterator6['return']();
+            }
+          } finally {
+            if (_didIteratorError6) {
+              throw _iteratorError6;
+            }
+          }
         }
-      },
-      writable: true,
-      enumerable: true,
-      configurable: true
-    },
-    setMode: {
+      }
+    }, {
+      key: 'setMode',
       value: function setMode(mode) {
         if (this._mode) {
           this._mode.down();
@@ -284,12 +403,9 @@ var Canvas = (function () {
         this._mode = new mode(this);
         this._mode.create();
         this._modes.push(this._mode);
-      },
-      writable: true,
-      enumerable: true,
-      configurable: true
-    },
-    setDisplay: {
+      }
+    }, {
+      key: 'setDisplay',
       value: function setDisplay(display) {
         if (this._display) {
           this._display.down();
@@ -308,54 +424,50 @@ var Canvas = (function () {
         this._display = new display(this);
         this._display.init();
         this._displays.push(this._display);
-      },
-      writable: true,
-      enumerable: true,
-      configurable: true
-    },
-    show: {
+      }
+    }, {
+      key: 'show',
       value: function show() {
         var _this3 = this;
+
         this.renderer.render(this.scene, this.camera);
 
         requestAnimationFrame(function () {
           return _this3.show();
         });
-      },
-      writable: true,
-      enumerable: true,
-      configurable: true
+      }
+    }]);
+
+    return Canvas;
+  })();
+
+  var OrbitHelper = (function () {
+    function OrbitHelper(canvas) {
+      _classCallCheck(this, OrbitHelper);
+
+      this.canvas = canvas;
+
+      this.quaternion = new LiThree.Math.Quaternion();
+      this.matrix = null;
+
+      this.origin = new LiThree.Math.Vector3();
+      this.speed = 1;
+
+      canvas.renderer.camera.position.z = -10;
+
+      this._getMatrix();
     }
-  });
 
-  return Canvas;
-})();
-
-var OrbitHelper = (function () {
-  function OrbitHelper(canvas) {
-    this.canvas = canvas;
-
-    this.quaternion = new LiThree.Math.Quaternion();
-    this.matrix = null;
-
-    this.origin = new LiThree.Math.Vector3();
-    this.speed = 1;
-
-    canvas.renderer.camera.position.z = -10;
-
-    this._getMatrix();
-  }
-
-  _prototypeProperties(OrbitHelper, null, {
-    rotate: {
+    _createClass(OrbitHelper, [{
+      key: 'rotate',
       value: function rotate(dx, dy) {
         dx *= this.speed;
         dy *= this.speed;
 
         var r = Math.sqrt(dx * dx + dy * dy),
-            dq = new LiThree.Math.Quaternion(1, 0, 0, 0),
-            cq = this.quaternion,
-            rs = Math.sin(r * Math.PI) / r;
+          dq = new LiThree.Math.Quaternion(1, 0, 0, 0),
+          cq = this.quaternion,
+          rs = Math.sin(r * Math.PI) / r;
 
         if (r < 0.000001) {
           return;
@@ -371,126 +483,80 @@ var OrbitHelper = (function () {
         this.quaternion.multiply(cq);
 
         this._getMatrix();
-      },
-      writable: true,
-      enumerable: true,
-      configurable: true
-    },
-    distance: {
+      }
+    }, {
+      key: 'distance',
       value: function distance(delta) {
         var canvas = this.canvas,
-            camera = canvas.renderer.camera;
+          camera = canvas.renderer.camera;
 
         delta *= this.speed / 50;
 
-        if (canvas.getData("tween")) {
+        if (canvas.getData('tween')) {
           var z = camera.position.z + delta;
-          new TWEEN.Tween(camera.position).to({ z: z }, 200).easing(TWEEN.Easing.Cubic.Out).start();
+          new TWEEN.Tween(camera.position).to({z: z}, 200).easing(TWEEN.Easing.Cubic.Out).start();
         } else {
           camera.position.z += delta / 2;
         }
-      },
-      writable: true,
-      enumerable: true,
-      configurable: true
-    },
-    _getMatrix: {
-      value: function GetMatrix() {
+      }
+    }, {
+      key: '_getMatrix',
+      value: function _getMatrix() {
         this.matrix = LiThree.Math.Matrix4.fromRotationTranslationScaleOrigin(this.quaternion, this.origin, new LiThree.Math.Vector3(1, 1, 1), this.origin);
         return this.matrix;
-      },
-      writable: true,
-      enumerable: true,
-      configurable: true
+      }
+    }]);
+
+    return OrbitHelper;
+  })();
+
+  var BaseDisplay = function BaseDisplay(canvas) {
+    _classCallCheck(this, BaseDisplay);
+
+    this.canvas = canvas;
+    this._atoms = [];
+  };
+
+  var BAS_KEY = 'ball-and-stick';
+
+  var BallAndStick = (function (_BaseDisplay) {
+    _inherits(BallAndStick, _BaseDisplay);
+
+    function BallAndStick(canvas) {
+      _classCallCheck(this, BallAndStick);
+
+      _get(Object.getPrototypeOf(BallAndStick.prototype), 'constructor', this).call(this, canvas);
+
+      this.lights = [];
+      this.geometries = {
+        sphere: new THREE.SphereGeometry(0.3, 20, 20, 0, 2 * Math.PI),
+        cylinder: new THREE.CylinderGeometry(0.04, 0.04, 1)
+      };
+
+      var matrix1 = new THREE.Matrix4();
+      matrix1.setPosition(new THREE.Vector3(0, .08, 0));
+
+      var matrix2 = new THREE.Matrix4();
+      matrix2.setPosition(new THREE.Vector3(0, -.08, 0));
+
+      this.geometries.cylinder.applyMatrix(new THREE.Matrix4().makeRotationX(Math.PI / 2));
+      this.geometries.bonds = {};
+      this.geometries.bonds[1] = this.geometries.cylinder;
+      this.geometries.bonds[2] = this.geometries.cylinder.clone();
+      this.geometries.bonds[2].merge(this.geometries.cylinder, matrix2);
+      this.geometries.bonds[3] = this.geometries.bonds[2].clone();
+      this.geometries.bonds[3].merge(this.geometries.bonds[2], matrix1);
     }
-  });
 
-  return OrbitHelper;
-})();
-
-var BaseDisplay = function BaseDisplay(canvas) {
-  this.canvas = canvas;
-  this._atoms = [];
-};
-
-var BAS_KEY = "ball-and-stick";
-
-var BallAndStick = (function (BaseDisplay) {
-  function BallAndStick(canvas) {
-    this.lights = [];
-    this.geometries = {
-      sphere: new THREE.SphereGeometry(0.3, 20, 20, 0, 2 * Math.PI),
-      cylinder: new THREE.CylinderGeometry(0.04, 0.04, 1)
-    };
-
-    var matrix1 = new THREE.Matrix4();
-    matrix1.setPosition(new THREE.Vector3(0, 0.08, 0));
-
-    var matrix2 = new THREE.Matrix4();
-    matrix2.setPosition(new THREE.Vector3(0, -0.08, 0));
-
-    this.geometries.cylinder.applyMatrix(new THREE.Matrix4().makeRotationX(Math.PI / 2));
-    this.geometries.bonds = {};
-    this.geometries.bonds[1] = this.geometries.cylinder;
-    this.geometries.bonds[2] = this.geometries.cylinder.clone();
-    this.geometries.bonds[2].merge(this.geometries.cylinder, matrix2);
-    this.geometries.bonds[3] = this.geometries.bonds[2].clone();
-    this.geometries.bonds[3].merge(this.geometries.bonds[2], matrix1);
-
-    _get(Object.getPrototypeOf(BallAndStick.prototype), "constructor", this).call(this, canvas);
-  }
-
-  _inherits(BallAndStick, BaseDisplay);
-
-  _prototypeProperties(BallAndStick, {
-    generateTexture: {
-      value: function generateTexture(b, e) {
-        b = new THREE.Color(b);
-        e = new THREE.Color(e);
-
-        b = "#" + b.getHexString();
-        e = "#" + e.getHexString();
-
-        var width = 2,
-            height = 200;
-
-        // create canvas
-        var canvas = document.createElement("canvas");
-        canvas.width = width;
-        canvas.height = height;
-
-        // get context
-        var context = canvas.getContext("2d");
-
-        // draw gradient
-        context.rect(0, 0, width, height);
-        var gradient = context.createLinearGradient(0, 0, 0, height);
-        gradient.addColorStop(0, e);
-        gradient.addColorStop(0.5, e);
-        gradient.addColorStop(0.5, b);
-        gradient.addColorStop(1, b);
-        context.fillStyle = gradient;
-        context.fill();
-
-        var texture = new THREE.Texture(canvas);
-        canvas.remove();
-
-        texture.needsUpdate = true; // important!
-
-        return texture;
-      },
-      writable: true,
-      enumerable: true,
-      configurable: true
-    }
-  }, {
-    drawLight: {
+    _createClass(BallAndStick, [{
+      key: 'drawLight',
       value: function drawLight() {
-        var _this4 = this;
-        var light = new THREE.PointLight(16777215, 1.5);
+        var _this = this;
 
-        var updateLightPosition = function () {
-          var position = _this4.canvas.camera.position;
+        var light = new THREE.PointLight(0xffffff, 1.5);
+
+        var updateLightPosition = function updateLightPosition() {
+          var position = _this.canvas.camera.position;
 
           light.position.set(position.x * 100, position.y * 100, position.z * 300);
 
@@ -500,17 +566,14 @@ var BallAndStick = (function (BaseDisplay) {
         requestAnimationFrame(updateLightPosition);
 
         this.canvas.scene.add(light);
-      },
-      writable: true,
-      enumerable: true,
-      configurable: true
-    },
-    drawAtom: {
+      }
+    }, {
+      key: 'drawAtom',
       value: function drawAtom(atom) {
         var mesh, material;
         if (!atom.hasData(BAS_KEY)) {
           material = new THREE.MeshPhongMaterial({
-            specular: 1052688,
+            specular: 0x101010,
             shininess: 30
           });
           mesh = new THREE.Mesh(this.geometries.sphere, material);
@@ -518,7 +581,7 @@ var BallAndStick = (function (BaseDisplay) {
           atom.setData(BAS_KEY, mesh);
           this.canvas.group.add(mesh);
 
-          mesh.type = "atom";
+          mesh.type = 'atom';
           mesh.model = atom;
         } else {
           mesh = atom.getData(BAS_KEY);
@@ -532,48 +595,41 @@ var BallAndStick = (function (BaseDisplay) {
         radius = Math.min(radius, 2.1);
         mesh.scale.set(radius, radius, radius);
         mesh.position.copy(atom.position);
-      },
-      writable: true,
-      enumerable: true,
-      configurable: true
-    },
-    removeAtom: {
+      }
+    }, {
+      key: 'removeAtom',
       value: function removeAtom(atom) {
         var mesh = atom.getData(BAS_KEY);
         this.canvas.group.remove(mesh);
-      },
-      writable: true,
-      enumerable: true,
-      configurable: true
-    },
-    drawBond: {
+      }
+    }, {
+      key: 'drawBond',
       value: function drawBond(bond) {
         var canvas = this.canvas,
-            group = canvas.group,
-            begin = bond.begin,
-            end = bond.end,
-            beginData = begin.getData(BAS_KEY),
-            endData = end.getData(BAS_KEY);
-
+          group = canvas.group,
+          begin = bond.begin,
+          end = bond.end,
+          beginData = begin.getData(BAS_KEY),
+          endData = end.getData(BAS_KEY);
 
         if (!beginData || !endData) {
           return;
         }
 
         var beginPosition = beginData.position,
-            endPosition = endData.position,
-            beginColor = begin.element.color,
-            endColor = end.element.color,
-            distance = beginPosition.distanceTo(endPosition),
-            middle = beginPosition.clone().add(endPosition).divideScalar(2),
-            d = 0.06;
+          endPosition = endData.position,
+          beginColor = begin.element.color,
+          endColor = end.element.color,
+          distance = beginPosition.distanceTo(endPosition),
+          middle = beginPosition.clone().add(endPosition).divideScalar(2),
+          d = 0.06;
 
         var material, mesh;
 
         if (!bond.hasData(BAS_KEY)) {
           material = new THREE.MeshPhongMaterial({
-            color: 16777215,
-            specular: 1052688,
+            color: 0xffffff,
+            specular: 0x101010,
             shininess: 30,
             transparent: true
           });
@@ -581,7 +637,7 @@ var BallAndStick = (function (BaseDisplay) {
           material.colorCache = [-1, -1];
           mesh = new THREE.Mesh(this.geometries.bonds[bond.order], material);
           mesh.model = bond;
-          mesh.type = "bond";
+          mesh.type = 'bond';
           bond.setData(BAS_KEY, mesh);
         } else {
           mesh = bond.getData(BAS_KEY);
@@ -607,711 +663,754 @@ var BallAndStick = (function (BaseDisplay) {
         mesh.lookAt(endPosition);
 
         group.add(mesh);
-      },
-      writable: true,
-      enumerable: true,
-      configurable: true
-    },
-    removeBond: {
+      }
+    }, {
+      key: 'removeBond',
       value: function removeBond(bond) {
         var mesh = bond.getData(BAS_KEY);
         this.canvas.group.remove(mesh);
-      },
-      writable: true,
-      enumerable: true,
-      configurable: true
-    },
-    init: {
+      }
+    }, {
+      key: 'init',
       value: function init() {
         this.drawLight();
         this.up();
-      },
-      writable: true,
-      enumerable: true,
-      configurable: true
-    },
-    up: {
-      value: function up() {},
-      writable: true,
-      enumerable: true,
-      configurable: true
-    },
-    down: {
-      value: function down() {},
-      writable: true,
-      enumerable: true,
-      configurable: true
-    }
-  });
-
-  return BallAndStick;
-})(BaseDisplay);
-
-/**
- * @author qiao / https://github.com/qiao
- * @author mrdoob / http://mrdoob.com
- * @author alteredq / http://alteredqualia.com/
- * @author WestLangley / http://github.com/WestLangley
- * @author erich666 / http://erichaines.com
- */
-var OrbitControls = (function () {
-  function OrbitControls(object, domElement) {
-    this.object = object;
-    this.domElement = domElement !== undefined ? domElement : document;
-
-    // API
-
-    // Set to false to disable this control
-    this.enabled = true;
-
-    // "target" sets the location of focus, where the control orbits around
-    // and where it pans with respect to.
-    this.target = new THREE.Vector3();
-
-    // center is old, deprecated; use "target" instead
-    this.center = this.target;
-
-    // This option actually enables dollying in and out; left as "zoom" for
-    // backwards compatibility
-    this.noZoom = false;
-    this.zoomSpeed = 1;
-
-    // Limits to how far you can dolly in and out
-    this.minDistance = 0;
-    this.maxDistance = Infinity;
-
-    // Set to true to disable this control
-    this.noRotate = false;
-    this.rotateSpeed = 1;
-
-    // Set to true to disable this control
-    this.noPan = false;
-    this.keyPanSpeed = 7; // pixels moved per arrow key push
-
-    // Set to true to automatically rotate around the target
-    this.autoRotate = false;
-    this.autoRotateSpeed = 2; // 30 seconds per round when fps is 60
-
-    // How far you can orbit vertically, upper and lower limits.
-    // Range is 0 to Math.PI radians.
-    this.minPolarAngle = 0; // radians
-    this.maxPolarAngle = Math.PI; // radians
-
-    // How far you can orbit horizontally, upper and lower limits.
-    // If set, must be a sub-interval of the interval [ - Math.PI, Math.PI ].
-    this.minAzimuthAngle = -Infinity; // radians
-    this.maxAzimuthAngle = Infinity; // radians
-
-    // Set to true to disable use of the keys
-    this.noKeys = false;
-
-    // The four arrow keys
-    this.keys = { LEFT: 37, UP: 38, RIGHT: 39, BOTTOM: 40 };
-
-    // Mouse buttons
-    this.mouseButtons = { ORBIT: THREE.MOUSE.LEFT, ZOOM: THREE.MOUSE.MIDDLE, PAN: THREE.MOUSE.RIGHT };
-
-    ////////////
-    // internals
-
-    var scope = this;
-
-    var EPS = 0.000001;
-
-    var rotateStart = new THREE.Vector2();
-    var rotateEnd = new THREE.Vector2();
-    var rotateDelta = new THREE.Vector2();
-
-    var panStart = new THREE.Vector2();
-    var panEnd = new THREE.Vector2();
-    var panDelta = new THREE.Vector2();
-    var panOffset = new THREE.Vector3();
-
-    var offset = new THREE.Vector3();
-
-    var dollyStart = new THREE.Vector2();
-    var dollyEnd = new THREE.Vector2();
-    var dollyDelta = new THREE.Vector2();
-
-    var theta;
-    var phi;
-    var phiDelta = 0;
-    var thetaDelta = 0;
-    var scale = 1;
-    var pan = new THREE.Vector3();
-
-    var lastPosition = new THREE.Vector3();
-    var lastQuaternion = new THREE.Quaternion();
-
-    var STATE = { NONE: -1, ROTATE: 0, DOLLY: 1, PAN: 2, TOUCH_ROTATE: 3, TOUCH_DOLLY: 4, TOUCH_PAN: 5 };
-
-    var state = STATE.NONE;
-
-    // for reset
-
-    this.target0 = this.target.clone();
-    this.position0 = this.object.position.clone();
-
-    // so camera.up is the orbit axis
-
-    var quat = new THREE.Quaternion().setFromUnitVectors(object.up, new THREE.Vector3(0, 1, 0));
-    var quatInverse = quat.clone().inverse();
-
-    // events
-
-    var changeEvent = { type: "change" };
-    var startEvent = { type: "start" };
-    var endEvent = { type: "end" };
-
-    this.rotateLeft = function (angle) {
-      if (angle === undefined) {
-        angle = getAutoRotationAngle();
       }
-
-      thetaDelta -= angle;
-    };
-
-    this.rotateUp = function (angle) {
-      if (angle === undefined) {
-        angle = getAutoRotationAngle();
+    }, {
+      key: 'up',
+      value: function up() {
       }
-
-      phiDelta -= angle;
-    };
-
-    // pass in distance in world space to move left
-    this.panLeft = function (distance) {
-      var te = this.object.matrix.elements;
-
-      // get X column of matrix
-      panOffset.set(te[0], te[1], te[2]);
-      panOffset.multiplyScalar(-distance);
-
-      pan.add(panOffset);
-    };
-
-    // pass in distance in world space to move up
-    this.panUp = function (distance) {
-      var te = this.object.matrix.elements;
-
-      // get Y column of matrix
-      panOffset.set(te[4], te[5], te[6]);
-      panOffset.multiplyScalar(distance);
-
-      pan.add(panOffset);
-    };
-
-    // pass in x,y of change desired in pixel space,
-    // right and down are positive
-    this.pan = function (deltaX, deltaY) {
-      var element = scope.domElement === document ? scope.domElement.body : scope.domElement;
-
-      if (scope.object.fov !== undefined) {
-        // perspective
-        var position = scope.object.position;
-        var offset = position.clone().sub(scope.target);
-        var targetDistance = offset.length();
-
-        // half of the fov is center to top of screen
-        targetDistance *= Math.tan(scope.object.fov / 2 * Math.PI / 180);
-
-        // we actually don't use screenWidth, since perspective camera is fixed to screen height
-        scope.panLeft(2 * deltaX * targetDistance / element.clientHeight);
-        scope.panUp(2 * deltaY * targetDistance / element.clientHeight);
-      } else if (scope.object.top !== undefined) {
-        // orthographic
-        scope.panLeft(deltaX * (scope.object.right - scope.object.left) / element.clientWidth);
-        scope.panUp(deltaY * (scope.object.top - scope.object.bottom) / element.clientHeight);
-      } else {
-        // camera neither orthographic or perspective
-        console.warn("WARNING: orbit-controls.js encountered an unknown camera type - pan disabled.");
+    }, {
+      key: 'down',
+      value: function down() {
       }
-    };
+    }], [{
+      key: 'generateTexture',
+      value: function generateTexture(b, e) {
+        b = new THREE.Color(b);
+        e = new THREE.Color(e);
 
-    this.dollyIn = function (dollyScale) {
-      if (dollyScale === undefined) {
-        dollyScale = scope.getZoomScale();
+        b = '#' + b.getHexString();
+        e = '#' + e.getHexString();
+
+        var width = 2,
+          height = 200;
+
+        // create canvas
+        var canvas = document.createElement('canvas');
+        canvas.width = width;
+        canvas.height = height;
+
+        // get context
+        var context = canvas.getContext('2d');
+
+        // draw gradient
+        context.rect(0, 0, width, height);
+        var gradient = context.createLinearGradient(0, 0, 0, height);
+        gradient.addColorStop(0, e);
+        gradient.addColorStop(0.5, e);
+        gradient.addColorStop(0.5, b);
+        gradient.addColorStop(1, b);
+        context.fillStyle = gradient;
+        context.fill();
+
+        var texture = new THREE.Texture(canvas);
+        canvas.remove();
+
+        texture.needsUpdate = true; // important!
+
+        return texture;
       }
+    }]);
 
-      scale /= dollyScale;
-    };
+    return BallAndStick;
+  })(BaseDisplay);
 
-    this.dollyOut = function (dollyScale) {
-      if (dollyScale === undefined) {
-        dollyScale = scope.getZoomScale();
-      }
+  var OrbitControls = (function () {
+    function OrbitControls(object, domElement) {
+      _classCallCheck(this, OrbitControls);
 
-      scale *= dollyScale;
-    };
+      this.object = object;
+      this.domElement = domElement !== undefined ? domElement : document;
 
-    this.update = function () {
-      var position = this.object.position;
+      // API
 
-      offset.copy(position).sub(this.target);
+      // Set to false to disable this control
+      this.enabled = true;
 
-      // rotate offset to "y-axis-is-up" space
-      offset.applyQuaternion(quat);
+      // "target" sets the location of focus, where the control orbits around
+      // and where it pans with respect to.
+      this.target = new THREE.Vector3();
 
-      // angle from z-axis around y-axis
+      // center is old, deprecated; use "target" instead
+      this.center = this.target;
 
-      theta = Math.atan2(offset.x, offset.z);
+      // This option actually enables dollying in and out; left as "zoom" for
+      // backwards compatibility
+      this.noZoom = false;
+      this.zoomSpeed = 1.0;
 
-      // angle from y-axis
+      // Limits to how far you can dolly in and out
+      this.minDistance = 0;
+      this.maxDistance = Infinity;
 
-      phi = Math.atan2(Math.sqrt(offset.x * offset.x + offset.z * offset.z), offset.y);
+      // Set to true to disable this control
+      this.noRotate = false;
+      this.rotateSpeed = 1.0;
 
-      if (this.autoRotate && state === STATE.NONE) {
-        this.rotateLeft(getAutoRotationAngle());
-      }
+      // Set to true to disable this control
+      this.noPan = false;
+      this.keyPanSpeed = 7.0; // pixels moved per arrow key push
 
-      theta += thetaDelta;
-      phi += phiDelta;
+      // Set to true to automatically rotate around the target
+      this.autoRotate = false;
+      this.autoRotateSpeed = 2.0; // 30 seconds per round when fps is 60
 
-      // restrict theta to be between desired limits
-      theta = Math.max(this.minAzimuthAngle, Math.min(this.maxAzimuthAngle, theta));
+      // How far you can orbit vertically, upper and lower limits.
+      // Range is 0 to Math.PI radians.
+      this.minPolarAngle = 0; // radians
+      this.maxPolarAngle = Math.PI; // radians
 
-      // restrict phi to be between desired limits
-      phi = Math.max(this.minPolarAngle, Math.min(this.maxPolarAngle, phi));
+      // How far you can orbit horizontally, upper and lower limits.
+      // If set, must be a sub-interval of the interval [ - Math.PI, Math.PI ].
+      this.minAzimuthAngle = -Infinity; // radians
+      this.maxAzimuthAngle = Infinity; // radians
 
-      // restrict phi to be betwee EPS and PI-EPS
-      phi = Math.max(EPS, Math.min(Math.PI - EPS, phi));
+      // Set to true to disable use of the keys
+      this.noKeys = false;
 
-      var radius = offset.length() * scale;
+      // The four arrow keys
+      this.keys = {LEFT: 37, UP: 38, RIGHT: 39, BOTTOM: 40};
 
-      // restrict radius to be between desired limits
-      radius = Math.max(this.minDistance, Math.min(this.maxDistance, radius));
+      // Mouse buttons
+      this.mouseButtons = {ORBIT: THREE.MOUSE.LEFT, ZOOM: THREE.MOUSE.MIDDLE, PAN: THREE.MOUSE.RIGHT};
 
-      // move target to panned location
-      this.target.add(pan);
+      ////////////
+      // internals
 
-      offset.x = radius * Math.sin(phi) * Math.sin(theta);
-      offset.y = radius * Math.cos(phi);
-      offset.z = radius * Math.sin(phi) * Math.cos(theta);
+      var scope = this;
 
-      // rotate offset back to "camera-up-vector-is-up" space
-      offset.applyQuaternion(quatInverse);
+      var EPS = 0.000001;
 
-      position.copy(this.target).add(offset);
+      var rotateStart = new THREE.Vector2();
+      var rotateEnd = new THREE.Vector2();
+      var rotateDelta = new THREE.Vector2();
 
-      this.object.lookAt(this.target);
+      var panStart = new THREE.Vector2();
+      var panEnd = new THREE.Vector2();
+      var panDelta = new THREE.Vector2();
+      var panOffset = new THREE.Vector3();
 
-      thetaDelta = 0;
-      phiDelta = 0;
-      scale = 1;
-      pan.set(0, 0, 0);
+      var offset = new THREE.Vector3();
 
-      // update condition is:
-      // min(camera displacement, camera rotation in radians)^2 > EPS
-      // using small-angle approximation cos(x/2) = 1 - x^2 / 8
+      var dollyStart = new THREE.Vector2();
+      var dollyEnd = new THREE.Vector2();
+      var dollyDelta = new THREE.Vector2();
 
-      if (lastPosition.distanceToSquared(this.object.position) > EPS || 8 * (1 - lastQuaternion.dot(this.object.quaternion)) > EPS) {
-        //this.dispatchEvent(changeEvent);
+      var theta;
+      var phi;
+      var phiDelta = 0;
+      var thetaDelta = 0;
+      var scale = 1;
+      var pan = new THREE.Vector3();
 
-        lastPosition.copy(this.object.position);
-        lastQuaternion.copy(this.object.quaternion);
-      }
-    };
+      var lastPosition = new THREE.Vector3();
+      var lastQuaternion = new THREE.Quaternion();
 
+      var STATE = {NONE: -1, ROTATE: 0, DOLLY: 1, PAN: 2, TOUCH_ROTATE: 3, TOUCH_DOLLY: 4, TOUCH_PAN: 5};
 
-    this.reset = function () {
-      state = STATE.NONE;
+      var state = STATE.NONE;
 
-      this.target.copy(this.target0);
-      this.object.position.copy(this.position0);
+      // for reset
 
-      this.update();
-    };
+      this.target0 = this.target.clone();
+      this.position0 = this.object.position.clone();
 
-    this.getPolarAngle = function () {
-      return phi;
-    };
+      // so camera.up is the orbit axis
 
-    this.getAzimuthalAngle = function () {
-      return theta;
-    };
+      var quat = new THREE.Quaternion().setFromUnitVectors(object.up, new THREE.Vector3(0, 1, 0));
+      var quatInverse = quat.clone().inverse();
 
-    this.getAutoRotationAngle = function () {
-      return 2 * Math.PI / 60 / 60 * scope.autoRotateSpeed;
-    };
+      // events
 
-    this.getZoomScale = function () {
-      return Math.pow(0.95, scope.zoomSpeed);
-    };
+      var changeEvent = {type: 'change'};
+      var startEvent = {type: 'start'};
+      var endEvent = {type: 'end'};
 
-    this.onMouseDown = function (event) {
-      if (scope.enabled === false) return;
-      event.preventDefault();
+      this.rotateLeft = function (angle) {
 
-      if (event.button === scope.mouseButtons.ORBIT) {
-        if (scope.noRotate === true) return;
+        if (angle === undefined) {
 
-        state = STATE.ROTATE;
-
-        rotateStart.set(event.clientX, event.clientY);
-      } else if (event.button === scope.mouseButtons.ZOOM) {
-        if (scope.noZoom === true) return;
-
-        state = STATE.DOLLY;
-
-        dollyStart.set(event.clientX, event.clientY);
-      } else if (event.button === scope.mouseButtons.PAN) {
-        if (scope.noPan === true) return;
-
-        state = STATE.PAN;
-
-        panStart.set(event.clientX, event.clientY);
-      }
-
-      if (state !== STATE.NONE) {
-        document.addEventListener("mousemove", scope.onMouseMove, false);
-        document.addEventListener("mouseup", scope.onMouseUp, false);
-        //scope.dispatchEvent(startEvent);
-      }
-    };
-
-    this.onMouseMove = function (event) {
-      if (scope.enabled === false) return;
-
-      event.preventDefault();
-
-      var element = scope.domElement === document ? scope.domElement.body : scope.domElement;
-
-      if (state === STATE.ROTATE) {
-        if (scope.noRotate === true) return;
-
-        rotateEnd.set(event.clientX, event.clientY);
-        rotateDelta.subVectors(rotateEnd, rotateStart);
-
-        // rotating across whole screen goes 360 degrees around
-        scope.rotateLeft(2 * Math.PI * rotateDelta.x / element.clientWidth * scope.rotateSpeed);
-
-        // rotating up and down along whole screen attempts to go 360, but limited to 180
-        scope.rotateUp(2 * Math.PI * rotateDelta.y / element.clientHeight * scope.rotateSpeed);
-
-        rotateStart.copy(rotateEnd);
-      } else if (state === STATE.DOLLY) {
-        if (scope.noZoom === true) return;
-
-        dollyEnd.set(event.clientX, event.clientY);
-        dollyDelta.subVectors(dollyEnd, dollyStart);
-
-        if (dollyDelta.y > 0) {
-          scope.dollyIn();
-        } else {
-          scope.dollyOut();
+          angle = getAutoRotationAngle();
         }
 
-        dollyStart.copy(dollyEnd);
-      } else if (state === STATE.PAN) {
-        if (scope.noPan === true) return;
+        thetaDelta -= angle;
+      };
 
-        panEnd.set(event.clientX, event.clientY);
-        panDelta.subVectors(panEnd, panStart);
+      this.rotateUp = function (angle) {
 
-        scope.pan(panDelta.x, panDelta.y);
+        if (angle === undefined) {
 
-        panStart.copy(panEnd);
-      }
+          angle = getAutoRotationAngle();
+        }
 
-      if (state !== STATE.NONE) scope.update();
-    };
+        phiDelta -= angle;
+      };
 
-    this.onMouseUp = function () {
-      if (scope.enabled === false) return;
+      // pass in distance in world space to move left
+      this.panLeft = function (distance) {
 
-      document.removeEventListener("mousemove", scope.onMouseMove, false);
-      document.removeEventListener("mouseup", scope.onMouseUp, false);
-      //scope.dispatchEvent(endEvent);
-      state = STATE.NONE;
-    };
+        var te = this.object.matrix.elements;
 
-    this.onMouseWheel = function (event) {
-      if (scope.enabled === false || scope.noZoom === true || state !== STATE.NONE) return;
+        // get X column of matrix
+        panOffset.set(te[0], te[1], te[2]);
+        panOffset.multiplyScalar(-distance);
 
-      event.preventDefault();
-      event.stopPropagation();
+        pan.add(panOffset);
+      };
 
-      var delta = 0;
+      // pass in distance in world space to move up
+      this.panUp = function (distance) {
 
-      if (event.wheelDelta !== undefined) {
-        // WebKit / Opera / Explorer 9
+        var te = this.object.matrix.elements;
 
-        delta = event.wheelDelta;
-      } else if (event.detail !== undefined) {
-        // Firefox
+        // get Y column of matrix
+        panOffset.set(te[4], te[5], te[6]);
+        panOffset.multiplyScalar(distance);
 
-        delta = -event.detail;
-      }
+        pan.add(panOffset);
+      };
 
-      if (delta > 0) {
-        scope.dollyOut();
-      } else {
-        scope.dollyIn();
-      }
+      // pass in x,y of change desired in pixel space,
+      // right and down are positive
+      this.pan = function (deltaX, deltaY) {
 
-      scope.update();
-      //scope.dispatchEvent(startEvent);
-      //scope.dispatchEvent(endEvent);
-    };
+        var element = scope.domElement === document ? scope.domElement.body : scope.domElement;
 
-    this.onKeyDown = function (event) {
-      if (scope.enabled === false || scope.noKeys === true || scope.noPan === true) return;
+        if (scope.object.fov !== undefined) {
 
-      switch (event.keyCode) {
+          // perspective
+          var position = scope.object.position;
+          var offset = position.clone().sub(scope.target);
+          var targetDistance = offset.length();
 
-        case scope.keys.UP:
-          scope.pan(0, scope.keyPanSpeed);
-          scope.update();
-          break;
+          // half of the fov is center to top of screen
+          targetDistance *= Math.tan(scope.object.fov / 2 * Math.PI / 180.0);
 
-        case scope.keys.BOTTOM:
-          scope.pan(0, -scope.keyPanSpeed);
-          scope.update();
-          break;
+          // we actually don't use screenWidth, since perspective camera is fixed to screen height
+          scope.panLeft(2 * deltaX * targetDistance / element.clientHeight);
+          scope.panUp(2 * deltaY * targetDistance / element.clientHeight);
+        } else if (scope.object.top !== undefined) {
 
-        case scope.keys.LEFT:
-          scope.pan(scope.keyPanSpeed, 0);
-          scope.update();
-          break;
+          // orthographic
+          scope.panLeft(deltaX * (scope.object.right - scope.object.left) / element.clientWidth);
+          scope.panUp(deltaY * (scope.object.top - scope.object.bottom) / element.clientHeight);
+        } else {
 
-        case scope.keys.RIGHT:
-          scope.pan(-scope.keyPanSpeed, 0);
-          scope.update();
-          break;
+          // camera neither orthographic or perspective
+          console.warn('WARNING: orbit-controls.js encountered an unknown camera type - pan disabled.');
+        }
+      };
 
-      }
-    };
+      this.dollyIn = function (dollyScale) {
 
-    this.touchstart = function (event) {
-      if (scope.enabled === false) return;
+        if (dollyScale === undefined) {
 
-      switch (event.touches.length) {
+          dollyScale = scope.getZoomScale();
+        }
 
-        case 1:
-          // one-fingered touch: rotate
+        scale /= dollyScale;
+      };
 
+      this.dollyOut = function (dollyScale) {
+
+        if (dollyScale === undefined) {
+
+          dollyScale = scope.getZoomScale();
+        }
+
+        scale *= dollyScale;
+      };
+
+      this.update = function () {
+
+        var position = this.object.position;
+
+        offset.copy(position).sub(this.target);
+
+        // rotate offset to "y-axis-is-up" space
+        offset.applyQuaternion(quat);
+
+        // angle from z-axis around y-axis
+
+        theta = Math.atan2(offset.x, offset.z);
+
+        // angle from y-axis
+
+        phi = Math.atan2(Math.sqrt(offset.x * offset.x + offset.z * offset.z), offset.y);
+
+        if (this.autoRotate && state === STATE.NONE) {
+
+          this.rotateLeft(getAutoRotationAngle());
+        }
+
+        theta += thetaDelta;
+        phi += phiDelta;
+
+        // restrict theta to be between desired limits
+        theta = Math.max(this.minAzimuthAngle, Math.min(this.maxAzimuthAngle, theta));
+
+        // restrict phi to be between desired limits
+        phi = Math.max(this.minPolarAngle, Math.min(this.maxPolarAngle, phi));
+
+        // restrict phi to be betwee EPS and PI-EPS
+        phi = Math.max(EPS, Math.min(Math.PI - EPS, phi));
+
+        var radius = offset.length() * scale;
+
+        // restrict radius to be between desired limits
+        radius = Math.max(this.minDistance, Math.min(this.maxDistance, radius));
+
+        // move target to panned location
+        this.target.add(pan);
+
+        offset.x = radius * Math.sin(phi) * Math.sin(theta);
+        offset.y = radius * Math.cos(phi);
+        offset.z = radius * Math.sin(phi) * Math.cos(theta);
+
+        // rotate offset back to "camera-up-vector-is-up" space
+        offset.applyQuaternion(quatInverse);
+
+        position.copy(this.target).add(offset);
+
+        this.object.lookAt(this.target);
+
+        thetaDelta = 0;
+        phiDelta = 0;
+        scale = 1;
+        pan.set(0, 0, 0);
+
+        // update condition is:
+        // min(camera displacement, camera rotation in radians)^2 > EPS
+        // using small-angle approximation cos(x/2) = 1 - x^2 / 8
+
+        if (lastPosition.distanceToSquared(this.object.position) > EPS || 8 * (1 - lastQuaternion.dot(this.object.quaternion)) > EPS) {
+
+          //this.dispatchEvent(changeEvent);
+
+          lastPosition.copy(this.object.position);
+          lastQuaternion.copy(this.object.quaternion);
+        }
+      };
+
+      this.reset = function () {
+
+        state = STATE.NONE;
+
+        this.target.copy(this.target0);
+        this.object.position.copy(this.position0);
+
+        this.update();
+      };
+
+      this.getPolarAngle = function () {
+
+        return phi;
+      };
+
+      this.getAzimuthalAngle = function () {
+
+        return theta;
+      };
+
+      this.getAutoRotationAngle = function () {
+
+        return 2 * Math.PI / 60 / 60 * scope.autoRotateSpeed;
+      };
+
+      this.getZoomScale = function () {
+
+        return Math.pow(0.95, scope.zoomSpeed);
+      };
+
+      this.onMouseDown = function (event) {
+
+        if (scope.enabled === false) return;
+        event.preventDefault();
+
+        if (event.button === scope.mouseButtons.ORBIT) {
           if (scope.noRotate === true) return;
 
-          state = STATE.TOUCH_ROTATE;
+          state = STATE.ROTATE;
 
-          rotateStart.set(event.touches[0].pageX, event.touches[0].pageY);
-          break;
-
-        case 2:
-          // two-fingered touch: dolly
-
+          rotateStart.set(event.clientX, event.clientY);
+        } else if (event.button === scope.mouseButtons.ZOOM) {
           if (scope.noZoom === true) return;
 
-          state = STATE.TOUCH_DOLLY;
+          state = STATE.DOLLY;
 
-          var dx = event.touches[0].pageX - event.touches[1].pageX;
-          var dy = event.touches[0].pageY - event.touches[1].pageY;
-          var distance = Math.sqrt(dx * dx + dy * dy);
-          dollyStart.set(0, distance);
-          break;
-
-        case 3:
-          // three-fingered touch: pan
-
+          dollyStart.set(event.clientX, event.clientY);
+        } else if (event.button === scope.mouseButtons.PAN) {
           if (scope.noPan === true) return;
 
-          state = STATE.TOUCH_PAN;
+          state = STATE.PAN;
 
-          panStart.set(event.touches[0].pageX, event.touches[0].pageY);
-          break;
+          panStart.set(event.clientX, event.clientY);
+        }
 
-        default:
+        if (state !== STATE.NONE) {
+          document.addEventListener('mousemove', scope.onMouseMove, false);
+          document.addEventListener('mouseup', scope.onMouseUp, false);
+          //scope.dispatchEvent(startEvent);
+        }
+      };
 
+      this.onMouseMove = function (event) {
 
-          state = STATE.NONE;
+        if (scope.enabled === false) return;
 
-      }
+        event.preventDefault();
 
-      //if (state !== STATE.NONE) scope.dispatchEvent(startEvent);
-    };
+        var element = scope.domElement === document ? scope.domElement.body : scope.domElement;
 
-    this.touchmove = function (event) {
-      if (scope.enabled === false) return;
-
-      event.preventDefault();
-      event.stopPropagation();
-
-      var element = scope.domElement === document ? scope.domElement.body : scope.domElement;
-
-      switch (event.touches.length) {
-
-        case 1:
-          // one-fingered touch: rotate
+        if (state === STATE.ROTATE) {
 
           if (scope.noRotate === true) return;
-          if (state !== STATE.TOUCH_ROTATE) return;
 
-          rotateEnd.set(event.touches[0].pageX, event.touches[0].pageY);
+          rotateEnd.set(event.clientX, event.clientY);
           rotateDelta.subVectors(rotateEnd, rotateStart);
 
           // rotating across whole screen goes 360 degrees around
           scope.rotateLeft(2 * Math.PI * rotateDelta.x / element.clientWidth * scope.rotateSpeed);
+
           // rotating up and down along whole screen attempts to go 360, but limited to 180
           scope.rotateUp(2 * Math.PI * rotateDelta.y / element.clientHeight * scope.rotateSpeed);
 
           rotateStart.copy(rotateEnd);
-
-          scope.update();
-          break;
-
-        case 2:
-          // two-fingered touch: dolly
+        } else if (state === STATE.DOLLY) {
 
           if (scope.noZoom === true) return;
-          if (state !== STATE.TOUCH_DOLLY) return;
 
-          var dx = event.touches[0].pageX - event.touches[1].pageX;
-          var dy = event.touches[0].pageY - event.touches[1].pageY;
-          var distance = Math.sqrt(dx * dx + dy * dy);
-
-          dollyEnd.set(0, distance);
+          dollyEnd.set(event.clientX, event.clientY);
           dollyDelta.subVectors(dollyEnd, dollyStart);
 
           if (dollyDelta.y > 0) {
-            scope.dollyOut();
-          } else {
+
             scope.dollyIn();
+          } else {
+
+            scope.dollyOut();
           }
 
           dollyStart.copy(dollyEnd);
-
-          scope.update();
-          break;
-
-        case 3:
-          // three-fingered touch: pan
+        } else if (state === STATE.PAN) {
 
           if (scope.noPan === true) return;
-          if (state !== STATE.TOUCH_PAN) return;
 
-          panEnd.set(event.touches[0].pageX, event.touches[0].pageY);
+          panEnd.set(event.clientX, event.clientY);
           panDelta.subVectors(panEnd, panStart);
 
           scope.pan(panDelta.x, panDelta.y);
 
           panStart.copy(panEnd);
+        }
 
-          scope.update();
-          break;
+        if (state !== STATE.NONE) scope.update();
+      };
 
-        default:
+      this.onMouseUp = function () /* event */ {
 
+        if (scope.enabled === false) return;
 
-          state = STATE.NONE;
+        document.removeEventListener('mousemove', scope.onMouseMove, false);
+        document.removeEventListener('mouseup', scope.onMouseUp, false);
+        //scope.dispatchEvent(endEvent);
+        state = STATE.NONE;
+      };
 
-      }
-    };
+      this.onMouseWheel = function (event) {
 
-    this.touchend = function () {
-      if (scope.enabled === false) return;
+        if (scope.enabled === false || scope.noZoom === true || state !== STATE.NONE) return;
 
-      //scope.dispatchEvent(endEvent);
-      state = STATE.NONE;
-    };
+        event.preventDefault();
+        event.stopPropagation();
 
-    this.domElement.addEventListener("contextmenu", function (event) {
-      event.preventDefault();
-    }, false);
+        var delta = 0;
 
-    // force an update at start
-    this.update();
-  }
+        if (event.wheelDelta !== undefined) {
+          // WebKit / Opera / Explorer 9
 
-  _prototypeProperties(OrbitControls, null, {
-    up: {
-      value: function up() {
-        this.domElement.addEventListener("mousedown", this.onMouseDown, false);
-        this.domElement.addEventListener("mousewheel", this.onMouseWheel, false);
-        this.domElement.addEventListener("DOMMouseScroll", this.onMouseWheel, false); // firefox
+          delta = event.wheelDelta;
+        } else if (event.detail !== undefined) {
+          // Firefox
 
-        this.domElement.addEventListener("touchstart", this.touchstart, false);
-        this.domElement.addEventListener("touchend", this.touchend, false);
-        this.domElement.addEventListener("touchmove", this.touchmove, false);
+          delta = -event.detail;
+        }
 
-        window.addEventListener("keydown", this.onKeyDown, false);
-      },
-      writable: true,
-      enumerable: true,
-      configurable: true
-    },
-    down: {
-      value: function down() {
-        this.domElement.removeEventListener("mousedown", this.onMouseDown, false);
-        this.domElement.removeEventListener("mousewheel", this.onMouseWheel, false);
-        this.domElement.removeEventListener("DOMMouseScroll", this.onMouseWheel, false); // firefox
+        if (delta > 0) {
 
-        this.domElement.removeEventListener("touchstart", this.touchstart, false);
-        this.domElement.removeEventListener("touchend", this.touchend, false);
-        this.domElement.removeEventListener("touchmove", this.touchmove, false);
+          scope.dollyOut();
+        } else {
 
-        window.removeEventListener("keydown", this.onKeyDown, false);
-      },
-      writable: true,
-      enumerable: true,
-      configurable: true
+          scope.dollyIn();
+        }
+
+        scope.update();
+        //scope.dispatchEvent(startEvent);
+        //scope.dispatchEvent(endEvent);
+      };
+
+      this.onKeyDown = function (event) {
+
+        if (scope.enabled === false || scope.noKeys === true || scope.noPan === true) return;
+
+        switch (event.keyCode) {
+
+          case scope.keys.UP:
+            scope.pan(0, scope.keyPanSpeed);
+            scope.update();
+            break;
+
+          case scope.keys.BOTTOM:
+            scope.pan(0, -scope.keyPanSpeed);
+            scope.update();
+            break;
+
+          case scope.keys.LEFT:
+            scope.pan(scope.keyPanSpeed, 0);
+            scope.update();
+            break;
+
+          case scope.keys.RIGHT:
+            scope.pan(-scope.keyPanSpeed, 0);
+            scope.update();
+            break;
+
+        }
+      };
+
+      this.touchstart = function (event) {
+
+        if (scope.enabled === false) return;
+
+        switch (event.touches.length) {
+
+          case 1:
+            // one-fingered touch: rotate
+
+            if (scope.noRotate === true) return;
+
+            state = STATE.TOUCH_ROTATE;
+
+            rotateStart.set(event.touches[0].pageX, event.touches[0].pageY);
+            break;
+
+          case 2:
+            // two-fingered touch: dolly
+
+            if (scope.noZoom === true) return;
+
+            state = STATE.TOUCH_DOLLY;
+
+            var dx = event.touches[0].pageX - event.touches[1].pageX;
+            var dy = event.touches[0].pageY - event.touches[1].pageY;
+            var distance = Math.sqrt(dx * dx + dy * dy);
+            dollyStart.set(0, distance);
+            break;
+
+          case 3:
+            // three-fingered touch: pan
+
+            if (scope.noPan === true) return;
+
+            state = STATE.TOUCH_PAN;
+
+            panStart.set(event.touches[0].pageX, event.touches[0].pageY);
+            break;
+
+          default:
+
+            state = STATE.NONE;
+
+        }
+
+        //if (state !== STATE.NONE) scope.dispatchEvent(startEvent);
+      };
+
+      this.touchmove = function (event) {
+
+        if (scope.enabled === false) return;
+
+        event.preventDefault();
+        event.stopPropagation();
+
+        var element = scope.domElement === document ? scope.domElement.body : scope.domElement;
+
+        switch (event.touches.length) {
+
+          case 1:
+            // one-fingered touch: rotate
+
+            if (scope.noRotate === true) return;
+            if (state !== STATE.TOUCH_ROTATE) return;
+
+            rotateEnd.set(event.touches[0].pageX, event.touches[0].pageY);
+            rotateDelta.subVectors(rotateEnd, rotateStart);
+
+            // rotating across whole screen goes 360 degrees around
+            scope.rotateLeft(2 * Math.PI * rotateDelta.x / element.clientWidth * scope.rotateSpeed);
+            // rotating up and down along whole screen attempts to go 360, but limited to 180
+            scope.rotateUp(2 * Math.PI * rotateDelta.y / element.clientHeight * scope.rotateSpeed);
+
+            rotateStart.copy(rotateEnd);
+
+            scope.update();
+            break;
+
+          case 2:
+            // two-fingered touch: dolly
+
+            if (scope.noZoom === true) return;
+            if (state !== STATE.TOUCH_DOLLY) return;
+
+            var dx = event.touches[0].pageX - event.touches[1].pageX;
+            var dy = event.touches[0].pageY - event.touches[1].pageY;
+            var distance = Math.sqrt(dx * dx + dy * dy);
+
+            dollyEnd.set(0, distance);
+            dollyDelta.subVectors(dollyEnd, dollyStart);
+
+            if (dollyDelta.y > 0) {
+
+              scope.dollyOut();
+            } else {
+
+              scope.dollyIn();
+            }
+
+            dollyStart.copy(dollyEnd);
+
+            scope.update();
+            break;
+
+          case 3:
+            // three-fingered touch: pan
+
+            if (scope.noPan === true) return;
+            if (state !== STATE.TOUCH_PAN) return;
+
+            panEnd.set(event.touches[0].pageX, event.touches[0].pageY);
+            panDelta.subVectors(panEnd, panStart);
+
+            scope.pan(panDelta.x, panDelta.y);
+
+            panStart.copy(panEnd);
+
+            scope.update();
+            break;
+
+          default:
+
+            state = STATE.NONE;
+
+        }
+      };
+
+      this.touchend = function () /* event */ {
+
+        if (scope.enabled === false) return;
+
+        //scope.dispatchEvent(endEvent);
+        state = STATE.NONE;
+      };
+
+      this.domElement.addEventListener('contextmenu', function (event) {
+        event.preventDefault();
+      }, false);
+
+      // force an update at start
+      this.update();
     }
-  });
 
-  return OrbitControls;
-})();
+    _createClass(OrbitControls, [{
+      key: 'up',
+      value: function up() {
 
-var EditorMode = (function () {
-  function EditorMode(canvas) {
-    this.canvas = canvas;
+        this.domElement.addEventListener('mousedown', this.onMouseDown, false);
+        this.domElement.addEventListener('mousewheel', this.onMouseWheel, false);
+        this.domElement.addEventListener('DOMMouseScroll', this.onMouseWheel, false); // firefox
 
-    this._attachListeners();
-  }
+        this.domElement.addEventListener('touchstart', this.touchstart, false);
+        this.domElement.addEventListener('touchend', this.touchend, false);
+        this.domElement.addEventListener('touchmove', this.touchmove, false);
 
-  _prototypeProperties(EditorMode, null, {
-    up: {
+        window.addEventListener('keydown', this.onKeyDown, false);
+      }
+    }, {
+      key: 'down',
+      value: function down() {
+
+        this.domElement.removeEventListener('mousedown', this.onMouseDown, false);
+        this.domElement.removeEventListener('mousewheel', this.onMouseWheel, false);
+        this.domElement.removeEventListener('DOMMouseScroll', this.onMouseWheel, false); // firefox
+
+        this.domElement.removeEventListener('touchstart', this.touchstart, false);
+        this.domElement.removeEventListener('touchend', this.touchend, false);
+        this.domElement.removeEventListener('touchmove', this.touchmove, false);
+
+        window.removeEventListener('keydown', this.onKeyDown, false);
+      }
+    }]);
+
+    return OrbitControls;
+  })();
+
+  var EditorMode = (function () {
+    function EditorMode(canvas) {
+      _classCallCheck(this, EditorMode);
+
+      this.canvas = canvas;
+
+      this._attachListeners();
+    }
+
+    _createClass(EditorMode, [{
+      key: 'up',
       value: function up() {
         var canvas = this.canvas,
-            renderer = canvas.renderer,
-            element = renderer.domElement;
+          renderer = canvas.renderer,
+          element = renderer.domElement;
 
-        element.addEventListener("mousedown", this.listeners.mousedown);
-        element.addEventListener("mousemove", this.listeners.mousemove);
-        element.addEventListener("mouseup", this.listeners.mouseup);
-      },
-      writable: true,
-      enumerable: true,
-      configurable: true
-    },
-    down: {
+        element.addEventListener('mousedown', this.listeners.mousedown);
+        element.addEventListener('mousemove', this.listeners.mousemove);
+        element.addEventListener('mouseup', this.listeners.mouseup);
+      }
+    }, {
+      key: 'down',
       value: function down() {
         var canvas = this.canvas,
-            renderer = canvas.renderer,
-            element = renderer.domElement;
+          renderer = canvas.renderer,
+          element = renderer.domElement;
 
-        element.removeEventListener("mousedown", this.listeners.mousedown);
-      },
-      writable: true,
-      enumerable: true,
-      configurable: true
-    },
-    create: {
+        element.removeEventListener('mousedown', this.listeners.mousedown);
+      }
+    }, {
+      key: 'create',
       value: function create() {
         this.up();
-      },
-      writable: true,
-      enumerable: true,
-      configurable: true
-    },
-    _attachListeners: {
-      value: function AttachListeners() {
-        var _this5 = this;
+      }
+    }, {
+      key: '_attachListeners',
+      value: function _attachListeners() {
+        var _this = this;
+
         var downPosition = new THREE.Vector2(),
-            movePosition = new THREE.Vector2(),
-            upPosition = new THREE.Vector2(),
-            canvas = this.canvas;
+          movePosition = new THREE.Vector2(),
+          upPosition = new THREE.Vector2(),
+          canvas = this.canvas;
 
         var atom1 = undefined,
-            atom2 = undefined;
+          atom2 = undefined;
 
         var fixed = false;
 
@@ -1322,20 +1421,20 @@ var EditorMode = (function () {
 
           downPosition.set(e.clientX, e.clientY);
 
-          var caster = _this5._getRayCaster(downPosition);
+          var caster = _this._getRayCaster(downPosition);
           var intersect = caster.intersectObjects(canvas.group.children);
-          var position = _this5._getPosition(downPosition);
+          var position = _this._getPosition(downPosition);
 
           if (e.which === 1 && position && intersect.length === 0) {
             var atom = new Chem.Atom();
 
-            atom.atomicNumber = canvas.getData("element");
+            atom.atomicNumber = canvas.getData('element');
             atom.position = position;
             canvas.addAtom(atom);
 
             atom1 = atom;
           } else if (position && intersect.length > 0) {
-            var model = _this5._getNearest(intersect);
+            var model = _this._getNearest(intersect);
 
             if (model instanceof Chem.Atom) {
               if (e.which === 1) {
@@ -1364,17 +1463,18 @@ var EditorMode = (function () {
 
           var delta = prevPosition.distanceTo(movePosition);
 
-          var caster = _this5._getRayCaster(movePosition);
-          var position = _this5._getPosition(movePosition);
+          var caster = _this._getRayCaster(movePosition);
+          var position = _this._getPosition(movePosition);
 
           if (e.which === 1 && atom1 && movePosition.distanceTo(downPosition) > 60) {
+
             var intersect = caster.intersectObjects(canvas.group.children);
 
             intersect = intersect.filter(function (item) {
-              return item.object && item.object.type === "atom" && item.object.model !== atom2;
+              return item.object && item.object.type === 'atom' && item.object.model !== atom2;
             });
 
-            var model = _this5._getNearest(intersect);
+            var model = _this._getNearest(intersect);
 
             if (!fixed) {
               if (model) {
@@ -1392,7 +1492,7 @@ var EditorMode = (function () {
               } else {
                 if (!atom2) {
                   atom2 = new Chem.Atom();
-                  atom2.atomicNumber = canvas.getData("element");
+                  atom2.atomicNumber = canvas.getData('element');
                   atom2.position = position;
                   new Chem.Bond(atom1, atom2);
 
@@ -1411,21 +1511,18 @@ var EditorMode = (function () {
           upPosition.set(e.clientX, e.clientY);
 
           if (e.which === 1 && upPosition.distanceTo(downPosition) < 2 && atom1) {
-            atom1.atomicNumber = canvas.getData("element");
-            _this5.canvas.update();
+            atom1.atomicNumber = canvas.getData('element');
+            _this.canvas.update();
           }
 
           atom1 = false;
           atom2 = false;
           fixed = false;
         };
-      },
-      writable: true,
-      enumerable: true,
-      configurable: true
-    },
-    _getPosition: {
-      value: function GetPosition(point) {
+      }
+    }, {
+      key: '_getPosition',
+      value: function _getPosition(point) {
         var rayCaster = this._getRayCaster(point);
         var canvas = this.canvas;
         var planeZ = new THREE.Plane(rayCaster.ray.direction, -2);
@@ -1439,13 +1536,10 @@ var EditorMode = (function () {
         } else {
           return null;
         }
-      },
-      writable: true,
-      enumerable: true,
-      configurable: true
-    },
-    _getRayCaster: {
-      value: function GetRayCaster(point) {
+      }
+    }, {
+      key: '_getRayCaster',
+      value: function _getRayCaster(point) {
         var element = this.canvas.renderer.domElement;
 
         var point3d = new THREE.Vector3(point.x / element.offsetWidth * 2 - 1, -(point.y / element.offsetHeight) * 2 + 1, 0.5);
@@ -1454,85 +1548,242 @@ var EditorMode = (function () {
         rayCaster.setFromCamera(point3d, this.canvas.camera);
 
         return rayCaster;
-      },
-      writable: true,
-      enumerable: true,
-      configurable: true
-    },
-    _getNearest: {
-      value: function GetNearest(objects) {
+      }
+    }, {
+      key: '_getNearest',
+      value: function _getNearest(objects) {
         var distance = 0,
-            result = null;
+          result = null;
 
-        for (var _iterator7 = objects[Symbol.iterator](), _step7; !(_step7 = _iterator7.next()).done;) {
-          var object = _step7.value;
-          if (!result || object.distance < distance) {
-            distance = object.distance;
-            result = object.object.model;
+        var _iteratorNormalCompletion = true;
+        var _didIteratorError = false;
+        var _iteratorError = undefined;
+
+        try {
+          for (var _iterator = objects[Symbol.iterator](), _step; !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true) {
+            var object = _step.value;
+
+            if (!result || object.distance < distance) {
+              distance = object.distance;
+              result = object.object.model;
+            }
+          }
+        } catch (err) {
+          _didIteratorError = true;
+          _iteratorError = err;
+        } finally {
+          try {
+            if (!_iteratorNormalCompletion && _iterator['return']) {
+              _iterator['return']();
+            }
+          } finally {
+            if (_didIteratorError) {
+              throw _iteratorError;
+            }
           }
         }
 
         return result;
-      },
-      writable: true,
-      enumerable: true,
-      configurable: true
+      }
+    }]);
+
+    return EditorMode;
+  })();
+
+  var OrbitMode = (function () {
+    function OrbitMode(canvas) {
+      _classCallCheck(this, OrbitMode);
+
+      this.canvas = canvas;
+
+      this.orbitControl = new OrbitControls(canvas.camera, canvas.renderer.domElement);
     }
-  });
 
-  return EditorMode;
-})();
-
-var OrbitMode = (function () {
-  function OrbitMode(canvas) {
-    this.canvas = canvas;
-
-    this.orbitControl = new OrbitControls(canvas.camera, canvas.renderer.domElement);
-  }
-
-  _prototypeProperties(OrbitMode, null, {
-    up: {
+    _createClass(OrbitMode, [{
+      key: "up",
       value: function up() {
         this.orbitControl.up();
-      },
-      writable: true,
-      enumerable: true,
-      configurable: true
-    },
-    down: {
+      }
+    }, {
+      key: "down",
       value: function down() {
         this.orbitControl.down();
-      },
-      writable: true,
-      enumerable: true,
-      configurable: true
-    },
-    create: {
+      }
+    }, {
+      key: "create",
       value: function create() {
         this.up();
-      },
-      writable: true,
-      enumerable: true,
-      configurable: true
+      }
+    }]);
+
+    return OrbitMode;
+  })();
+
+  var RepositionMode = (function () {
+    function RepositionMode(canvas) {
+      _classCallCheck(this, RepositionMode);
+
+      this.canvas = canvas;
+
+      this._attachListeners();
     }
-  });
 
-  return OrbitMode;
-})();
+    _createClass(RepositionMode, [{
+      key: 'up',
+      value: function up() {
+        var canvas = this.canvas,
+          renderer = canvas.renderer,
+          element = renderer.domElement;
 
-// TODO: draw cylinder dynamically
-/* event */ /* event */
-//
-root.Mol3D = {
-  Canvas: Canvas,
-  Display: {
-    BallAndStick: BallAndStick
-  },
-  Mode: {
-    Orbit: OrbitMode,
-    Editor: EditorMode
-  }
-};
+        element.addEventListener('mousedown', this.listeners.mousedown);
+        element.addEventListener('mousemove', this.listeners.mousemove);
+        element.addEventListener('mouseup', this.listeners.mouseup);
+      }
+    }, {
+      key: 'down',
+      value: function down() {
+        var canvas = this.canvas,
+          renderer = canvas.renderer,
+          element = renderer.domElement;
+
+        element.removeEventListener('mousedown', this.listeners.mousedown);
+      }
+    }, {
+      key: 'create',
+      value: function create() {
+        this.up();
+      }
+    }, {
+      key: '_attachListeners',
+      value: function _attachListeners() {
+        var _this = this;
+
+        var downPosition = new THREE.Vector2(),
+          movePosition = new THREE.Vector2(),
+          upPosition = new THREE.Vector2(),
+          canvas = this.canvas;
+
+        var atom = undefined;
+
+        this.listeners = {};
+
+        this.listeners.mousedown = function (e) {
+          e.preventDefault();
+
+          downPosition.set(e.clientX, e.clientY);
+
+          var caster = _this._getRayCaster(downPosition);
+          var intersect = caster.intersectObjects(canvas.group.children);
+          var position = _this._getPosition(downPosition);
+
+          if (e.which === 1 && position && intersect.length > 0) {
+            var model = _this._getNearest(intersect);
+
+            if (model instanceof Chem.Atom) {
+              atom = model;
+            }
+          }
+        };
+
+        this.listeners.mousemove = function (e) {
+          movePosition.set(e.clientX, e.clientY);
+
+          var position = _this._getPosition(movePosition);
+
+          if (e.which === 1 && atom && movePosition.distanceTo(downPosition) > 20) {
+            atom.position = position;
+            canvas.update();
+          }
+        };
+
+        this.listeners.mouseup = function (e) {
+          e.preventDefault();
+          upPosition.set(e.clientX, e.clientY);
+
+          atom = false;
+        };
+      }
+    }, {
+      key: '_getPosition',
+      value: function _getPosition(point) {
+        var rayCaster = this._getRayCaster(point);
+        var canvas = this.canvas;
+        var planeZ = new THREE.Plane(rayCaster.ray.direction, -2);
+        var position = rayCaster.ray.intersectPlane(planeZ);
+
+        if (position) {
+          var mat = new THREE.Matrix4();
+          mat.getInverse(canvas.group.matrix);
+          position.applyMatrix4(mat);
+          return position;
+        } else {
+          return null;
+        }
+      }
+    }, {
+      key: '_getRayCaster',
+      value: function _getRayCaster(point) {
+        var element = this.canvas.renderer.domElement;
+
+        var point3d = new THREE.Vector3(point.x / element.offsetWidth * 2 - 1, -(point.y / element.offsetHeight) * 2 + 1, 0.5);
+
+        var rayCaster = new THREE.Raycaster();
+        rayCaster.setFromCamera(point3d, this.canvas.camera);
+
+        return rayCaster;
+      }
+    }, {
+      key: '_getNearest',
+      value: function _getNearest(objects) {
+        var distance = 0,
+          result = null;
+
+        var _iteratorNormalCompletion = true;
+        var _didIteratorError = false;
+        var _iteratorError = undefined;
+
+        try {
+          for (var _iterator = objects[Symbol.iterator](), _step; !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true) {
+            var object = _step.value;
+
+            if (!result || object.distance < distance) {
+              distance = object.distance;
+              result = object.object.model;
+            }
+          }
+        } catch (err) {
+          _didIteratorError = true;
+          _iteratorError = err;
+        } finally {
+          try {
+            if (!_iteratorNormalCompletion && _iterator['return']) {
+              _iterator['return']();
+            }
+          } finally {
+            if (_didIteratorError) {
+              throw _iteratorError;
+            }
+          }
+        }
+
+        return result;
+      }
+    }]);
+
+    return RepositionMode;
+  })();
+
+
+  root.Mol3D = {
+    Canvas: Canvas,
+    Display: {
+      BallAndStick: BallAndStick
+    },
+    Mode: {
+      Orbit: OrbitMode,
+      Reposition: RepositionMode,
+      Editor: EditorMode
+    }
+  };
 })
 (this);
-//# sourceMappingURL=mol3d.js.map
