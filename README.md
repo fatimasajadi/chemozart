@@ -8,4 +8,4 @@ Chemozart is a web-based 3d molecule editor and visualization platfrom. This app
 Chemozart is fully written in JavaScript using angularjs, nodejs, express and three.js. A nice simple UI is also implemented in JADE/LESS. This is what makes chemozart different than other existing chemical applications. 
 
 ## How to cite
-An article about Chemozart has been published on the **[Journal of Cheminformatics 2015, 7:56](www.jcheminf.com/content/7/1/56)**
+An article about Chemozart has been published on the **[Journal of Cheminformatics 2015, 7:56](http://www.jcheminf.com/content/7/1/56)**
