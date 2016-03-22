@@ -39,7 +39,7 @@ module.exports = function (grunt) {
       dev: {
         options: {
           script: 'server/app.js',
-          debug: true
+          debug: false
         }
       },
       prod: {
@@ -203,7 +203,6 @@ module.exports = function (grunt) {
       debug: {
         script: 'server/app.js',
         options: {
-          nodeArgs: ['--debug-brk'],
           env: {
             PORT: process.env.PORT || 9000
           },
@@ -228,7 +227,7 @@ module.exports = function (grunt) {
       target: {
         src: '<%= yeoman.client %>/index.html',
         ignorePath: '<%= yeoman.client %>/',
-        exclude: [/bootstrap-sass-official/, /bootstrap.js/, '/json3/', '/jquery/', '/tween/', '/es5-shim/', /bootstrap.css/, /font-awesome.css/]
+        exclude: [/bootstrap-sass-official/, /bootstrap.js/, '/json3/', '/jquery/', '/tween/', '/es5-shim/', /bootstrap.css/, /font-awesome/]
       }
     },
 
@@ -272,18 +271,6 @@ module.exports = function (grunt) {
             [/(assets\/images\/.*?\.(?:gif|jpeg|jpg|png|webp|svg))/gm, 'Update the JS to reference our revved images']
           ]
         }
-      }
-    },
-
-    // The following *-min tasks produce minified files in the dist folder
-    imagemin: {
-      dist: {
-        files: [{
-          expand: true,
-          cwd: '<%= yeoman.client %>/assets/images',
-          src: '{,*/}*.{png,jpg,jpeg,gif}',
-          dest: '<%= yeoman.dist %>/public/assets/images'
-        }]
       }
     },
 
@@ -430,7 +417,6 @@ module.exports = function (grunt) {
       dist: [
         'jade',
         'less',
-        'imagemin',
         'svgmin'
       ]
     },
@@ -469,6 +455,9 @@ module.exports = function (grunt) {
       },
       prod: {
         NODE_ENV: 'production'
+      },
+      dev: {
+        NODE_ENV: 'development'
       },
       all: localConfig
     },
@@ -632,53 +621,6 @@ module.exports = function (grunt) {
       'open',
       'watch'
     ]);
-  });
-
-  grunt.registerTask('server', function () {
-    grunt.log.warn('The `server` task has been deprecated. Use `grunt serve` to start a server.');
-    grunt.task.run(['serve']);
-  });
-
-  grunt.registerTask('test', function (target) {
-    if (target === 'server') {
-      return grunt.task.run([
-        'env:all',
-        'env:test',
-        'mochaTest'
-      ]);
-    }
-
-    else if (target === 'client') {
-      return grunt.task.run([
-        'clean:server',
-        'env:all',
-        'injector:less',
-        'concurrent:test',
-        'injector',
-        'autoprefixer',
-        'karma'
-      ]);
-    }
-
-    else if (target === 'e2e') {
-      return grunt.task.run([
-        'clean:server',
-        'env:all',
-        'env:test',
-        'injector:less',
-        'concurrent:test',
-        'injector',
-        'wiredep',
-        'autoprefixer',
-        'express:dev',
-        'protractor'
-      ]);
-    }
-
-    else grunt.task.run([
-        'test:server',
-        'test:client'
-      ]);
   });
 
   grunt.registerTask('build', [
