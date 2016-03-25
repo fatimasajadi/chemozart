@@ -1,5 +1,7 @@
 'use strict';
 
+window.OpenBabel = OpenBabelModule();
+
 angular.module('chemartApp', [
   'ngCookies',
   'ngResource',
