@@ -19,11 +19,8 @@ angular
         hin: "Hyperchem File",
       },
       export: function (type) {
-        var molecule = JSON.parse(
-          JSON.stringify(canvas.getMolecule().toJSON())
-        );
         var conv = new OpenBabel.ObConversionWrapper();
-        var obMol = JSONToOB(molecule);
+        var obMol = JSONToOB(canvas.getMolecule());
 
         try {
           conv.setOutFormat("", type);

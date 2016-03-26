@@ -6,15 +6,23 @@ angular.module('chemartApp')
     return {
 
       getEnergy: function (forcefield) {
-        var molecule = canvas.getMolecule().toJSON();
-        $http.post('/api/energy/' + forcefield, molecule).success(function (data) {
-          notify({
-            message: 'The energy is ' + data.energy,
-            classes: ['success']
-          });
+        var mol = JSONToOB(canvas.getMolecule());
+        var forceField = new OpenBabel.OBForceField.FindForceField(forcefield);
+        try {
+          forceField.SetLogLevel(3);
+          if (forceField.Setup(mol)) {
+            var sUnit = forceField.GetUnit();
+            var energy = forceField.Energy(true);
+            notify({
+              message: "The energy is " + energy,
+              classes: ["success"],
+            });
 
-          status('E = ' + data.energy + ' kcal')
-        });
+            status("E = " + energy + " " + sUnit);
+          }
+        } finally {
+          mol.delete();
+        }
       },
       addHydrogens: function () {
         var molecule = canvas.getMolecule().toJSON();

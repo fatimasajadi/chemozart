@@ -1,7 +1,10 @@
 'use strict';
 
 
-var JSONToOB = function JSONToOB(molecule) {
+var JSONToOB = function JSONToOB(input) {
+  var molecule = JSON.parse(
+    JSON.stringify(input.toJSON())
+  );
   var obMol = new OpenBabel.OBMol();
 
   var atoms = molecule.atoms.map(function (atom) {
